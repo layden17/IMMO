@@ -6,18 +6,18 @@ Clone the project
 git clone <repo-link.git>
 cd project-name
 
-#Install dependencies
+## Install dependencies
 Make sure you have Python and pip installed locally.
 Use requirements.txt to install project dependencies:
 pip install -r requirements.txt
 
-#Initial setup
+## Initial setup
 Ensure you are in the correct directory (src) before running Django commands. If needed, navigate to the src directory:
 cd src
 Perform database migrations:
 python manage.py migrate
 
-#Run the development server
+## Run the development server
 To start the Django development server, execute:
 python manage.py runserver
 Access the application in your browser at http://localhost:8000/.](http://127.0.0.1:8000/
