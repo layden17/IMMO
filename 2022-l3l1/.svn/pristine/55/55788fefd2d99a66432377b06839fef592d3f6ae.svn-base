@@ -1,0 +1,295 @@
+{% load static %}
+<!-- Modifier un achat-->
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% url 'js-catlog' %}"></script>
+    <script src="{% static '/admin/js/core.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+    <title>Ajouter Produit</title>
+</head>
+<body>
+
+    <form enctype="multipart/form-data" method='post' id="my-form">
+        {% csrf_token %}
+        {{ form.media }}
+        <div class="form-group">
+            {{form.fournisseur.errors}}
+            <label for="id_fournisseur">Fournisseur:</label>
+            {{ form.fournisseur }}
+            <a href="{% url 'FournisseursApp:ajout_fournisseurs' %}" class="btn" target="_blank">Ajouter un fournisseur</a>
+        </div>
+        <br>
+        
+        <div class="form-group">
+          <label for="id_date_achat">Date d'achat:</label>
+          <input type="text" name="date_achat" value="2022-03-30" class="vDateField" id="id_date_achat">
+      </div>
+       <div class="form-group">
+            {{form.prix_total.errors}}
+            <label for="id_Prix_total">Prix total:</label>
+            {{form.prix_total }}
+        </div>
+        <br>
+        <div id="produits-list">
+          <div id="modal-ajouter-produits" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+    
+        <div>
+          <label>Produits Divers</label>
+          {% load myfilters %}
+          <a href="{% url 'ProduitApp:add_autre_produit' %}" class="btn" target="_blank">Ajouter un Autre Produit</a>
+          <br>
+          <input type="text" id="searchBar2" placeholder="Autre Produit">
+
+          <div id="autre_produits_container">
+              {% for autre_produit in Autre_produits %}
+              
+             <!-- Ajout de filtre pour recuperer la quantite associé au produit -->
+              <div class="autre_produit">
+                  <input type="checkbox" name="autre_produits" value="{{ autre_produit.pk }}" id="id_autre_produits_{{ autre_produit.pk }}" {% if autre_produit in autre_produits %} checked {% endif %}>
+                  <label for="id_autre_produits_{{ autre_produit.pk }}" data-price="{{ autre_produit.prix_achat }}"
+                      {% if autre_produit in autre_produits %}
+                      data-quantite={{ quantites|get_quantite:autre_produit }}
+                      {% endif %}>
+                      {{ autre_produit.designation }}
+                      
+                  </label>
+              </div>
+              {% endfor %}
+          </div>
+      </div>
+      <br>
+      {% load myfilters %}
+        <div><label>Produits Brut</label>
+          <br>
+          <input type="text" id="searchBar1" placeholder="Produit Brut">
+        <div id="produits_brut_container">
+          
+          
+         {% for produits_brut in Produits_brut  %}
+          <div class="produit_brut">
+            <input type="checkbox" name="produits_bruts" value="{{ produits_brut.pk }}" id="id_produits_brut_{{ produits_brut.pk }}" {% if produits_brut in produits_bruts %} checked {% endif %}>
+            <label for="id_autre_produits_{{ produits_brut.pk }}"  
+            {% if produits_brut in produits_bruts %}
+            data-quantite={{ quantites_brut|get_quantite_brut:produits_brut }}
+            {% endif %}
+            {% if produits_brut in produits_bruts %}
+            data-quintal={{ quantites_quintal|get_quantite_quintal:produits_brut }}
+            {% endif %}
+            {% if produits_brut in produits_bruts %}
+            data-barre={{ quantites_bar|get_quantite_bar:produits_brut }}
+            {% endif %}
+              {{ produits_brut.designation }}
+            data-type-fer="{{produits_brut.type_fer}}"
+            data-price-quintal="{{produits_brut.prix_achat_quintal}}">
+            {{ produits_brut.designation }}-{{produits_brut.type_fer }}
+            </label>
+          </div>
+          {% endfor %}
+         
+        </div>
+      </div>
+    </div>
+  </div>
+  
+      <!-- The button to open the modal -->
+      <button type="button" id="ajouter-produits">Ajouter des produits</button>
+      <style>
+        #autre_produits_container {
+          width: 100%;
+          margin-top: 20px;
+          overflow: hidden;
+        }
+        
+        .autre_produit {
+          display: inline-block;
+          width: 10%;
+          height: 10px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+        #produits_brut_container {
+          width: 100%;
+          margin-top: 20px;
+          overflow: hidden;
+        }
+        
+        .produit_brut {
+          display: inline-block;
+          width: 10%;
+          height: 10px;
+          text-align: center;
+          margin-bottom: 10px;
+        }
+
+        </style>
+       
+
+      <script>
+        var modal = document.getElementById("modal-ajouter-produits");
+          var btn = document.getElementById("ajouter-produits");
+                var span = document.getElementsByClassName("close")[0];
+                var searchForm=document.getElementById("searchForm")
+                btn.onclick = function() {
+                  modal.style.display = "block";
+                }
+                
+                span.onclick = function() {
+                  modal.style.display = "none";
+                }
+                
+                window.onclick = function(event) {
+                  if (event.target == modal) {
+                    modal.style.display = "none";
+                  }
+                }
+          </script>
+      <!-- JavaScript to show and hide the modal -->
+      <style>
+        /* Style pour le bouton d'ouverture */
+      #ajouter-produits {
+        background-color: #35758d;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 10px 0;
+        cursor: pointer;
+      }
+      
+      /* Style pour la fenêtre modale */
+      .modal {
+        display: none; /* Par défaut, la fenêtre modale est masquée */
+        position: fixed; /* Permet de la positionner en absolu par rapport à la fenêtre du navigateur */
+        z-index: 1; /* Place la fenêtre modale au-dessus de tous les éléments de la page */
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto; /* Permet de scroller si la fenêtre modale est plus grande que l'écran */
+        background-color: rgba(0,0,0,0.4); /* Filtre de transparence */
+      }
+      
+      /* Contenu de la fenêtre modale */
+      .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto; /* Centre la fenêtre modale */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 800px;
+      }
+      
+      /* Style pour le bouton de fermeture */
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      </style>
+      <br>
+      
+        <div class="form-group">
+          {{ form.Versement_totalite.errors }}
+          <label for="id_Versement_totalite" default=TRUE>Versement totalité:</label>
+          {{ form.Versement_totalite }}
+      </div>
+      <br>
+      
+        <div class="form-group">
+            {{form.Versement.errors}}
+            <label for="id_Versement">Versement:</label>
+            {{form.Versement }}
+        </div>
+        <br>
+               
+        <div class="form-group">
+            {{form.Dette.errors}}
+            <label for="id_Dette">Dette:</label>
+            {{form.Dette}}
+        </div>
+        <br>
+              
+        <div class="form-group">
+            {{form.fichier.errors}}
+            <label for="id_Fichier">Fichier:</label>
+            {{ form.fichier}}
+        </div>
+        <br>
+               
+        
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+
+        <div class="form-group">
+            <button type="submit" name="submit_action" value="save" class="btn">Sauvegarder </button>
+            <a href="{% url 'AchatApp:achat'%}" class="btn"> Annuler</a>
+        </div>
+        <br>
+        <div id="tables_container">
+        <table id="selected_products_table">
+            <thead>
+              <tr>
+                <th>Designation</th>
+                <th>Prix Achat</th>
+                <th>Quantite</th>
+                <th>Prix Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <br>
+          
+          <table id="selected_products_brut_table">
+            <thead>
+              <tr>
+                <th>Designation</th>
+                <th>Prix Achat en quintal</th>
+                <th>Quantite en m</th>
+                <th>Quantite en quintal</th>
+                <th>Quantite en barre</th>
+                <th>Prix Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <br>
+          <br>
+        </div>
+      </form>
+      <script type="text/javascript" src="{% static 'js/achat.js' %}"></script>
+      
+      
+    
+</body>
+</html>
+
+
+
+

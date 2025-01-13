@@ -1,0 +1,20 @@
+REMARQUE : on va désigné la liste responsable de la destruction des cellules.
+
+REMARQUE : - la responsabilité de la destruction de la chaîne est à déterminer.
+Option 1 : la cellule fait un travail sur la chaîne 
+Option 2 : c'est la liste qui assume
+
+	   - Connect et disconnect peuvent laissé des branches abandonnées
+Option 1 : retourner qq chose qui permet de les gérer à postériori
+Option 2 : détruire ces morceaux
+Option 2 : régler la connection si les liens ne sont pas différent 
+
+
+RQ : pour operator<<(----liste le) on a besoin d'accéder à des informations des cellules or il n'est amis avec Liste.
+3 possibilités :
+		ajouter une amitié dans Cell (mais n'est pas naturel)
+		utiliser get(i) pour I de [0, lenght[ c'est du o(n^2)
+		faire en sorte que son ami (list) lui propose les informations par exemple dans 		liste :
+			private :
+				Cell* const suivantDe (Cell *const)
+

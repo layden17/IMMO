@@ -1,0 +1,33 @@
+/*debut du css pour les boutons langue*/
+.drapeau{
+    height: 40px; 
+    width: 40px; 
+    border-radius: 50%;
+    border: 0.15rem solid black;
+  }
+  
+  input[type="radio"].leslangues {
+    display: none; /*cacher les checkbox*/
+  }
+  
+  label[for^="langue_"]{
+      position: relative;
+      padding: 1px; /*permet de définir les différents écarts de remplissage sur les quatre côtés d'un élément*/
+      display: block; /*permet d'interprété l'élément comme un bloc*/
+      margin: 1px; /*définit la taille des marges sur les quatre côtés de l'élément*/
+      cursor: pointer; 
+  }
+  
+  label[for^="langue_"]img {
+    height: 100px; 
+    width: 100px;
+    transition-duration: 0.2s;
+  
+  }
+  
+  :checked + label[for^="langue_"] img {
+    border-radius: 300px;
+    transform: scale(0.9); /*redimensionne horizontalement et verticalement un élément*/
+    box-shadow: 0 0 20px rgb(0, 0, 0); /*ajout un effet d'ombre à un élément */
+    z-index: -1;
+  }

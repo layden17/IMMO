@@ -1,0 +1,58 @@
+/*debut du css pour adpater le css à d'autres dimensions*/
+@media screen and (max-width: 901px) {
+
+    .question{
+       position: relative;
+       line-height: 150%;
+       bottom: 0px;
+       z-index: 2;
+       left: 0px;
+    }
+   
+    form.myForm {
+     position: relative;
+     width  : 450px;
+     height : 750px;
+     margin : 0 auto;
+    }
+       
+    body{
+     margin-left: auto;
+     margin-right: auto;
+     background-color: rgb(255, 255, 255);
+     width: 600px;
+     background-color: #ffffff;
+     padding: 0 20px 10px 20px;
+     border: 5px solid black;
+     border-radius : 5%;
+    }
+  
+   #cb {
+    width: 125px; 
+    height: 50px; 
+    left: 5px;
+    bottom: 0px;
+    background-color:#fff;
+    border: 5px solid #1C12AA; 
+    text-align: center; 
+    line-height: 38px; 
+    color: #11AEEF; 
+    position: relative; 
+    z-index: 1; 
+    cursor: pointer;
+    transition: all 0.60s ease;
+    }
+  
+  }
+    
+  @media screen and (max-width: 541px) {
+    span.consigne {
+      font-weight: bold;
+      font-size: 14px;
+      text-decoration: underline overline #1C12AA;
+  
+    }
+  
+  }
+  
+  /*fin du css pour adpater le css à d'autres dimensions*/

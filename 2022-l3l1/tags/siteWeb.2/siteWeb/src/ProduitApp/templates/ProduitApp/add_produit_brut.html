@@ -1,0 +1,28 @@
+
+<!-- Ce code HTML étend la base HTML de la page des produits -->
+{% extends 'ProduitApp/produit_base.html' %}
+
+<!-- Charge les fichiers statiques (CSS, JavaScript, etc.) -->
+{% load static %}
+
+{% block content %}
+    <!-- Un titre pour la section d'ajout de produits bruts -->
+    <h1>Ajouter un produit brut</h1>
+
+    <!-- Un formulaire pour ajouter un produit brut avec une méthode POST pour envoyer les données -->
+    <form method="post">
+        <!-- Un jeton CSRF pour protéger contre les attaques CSRF -->
+        {% csrf_token %}
+
+        <!-- Afficher les champs de formulaire pour ajouter un produit brut -->
+        {{ form.as_p }}
+
+        <!-- Un bouton pour envoyer les données du formulaire -->
+        <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Un bloc pour inclure un script JavaScript pour effectuer des calculs sur les produits bruts -->
+    {% block js_block %}
+        <script type="text/javascript" src="{% static 'js/calculs_produit_brut.js' %}"></script>
+    {% endblock %}
+{% endblock %}

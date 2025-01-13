@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TEST FORMS</title>
+</head>
+<body>
+<h2>Gestion Client</h2>
+<form enctype="multipart/form-data" method ='POST'>
+    {% csrf_token%}
+    {{form.as_p}}
+    <button type = sumbit class="save btn btn-default">Sauvegarder</button>
+</form>
+</body>
+</html>

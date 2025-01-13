@@ -1,0 +1,33 @@
+/*debut du css pour le bouton valider */
+input[name="submit"] {
+    background:#64C760; /*gestion de la couleur de l'arrière-plan*/
+    border-radius: 20px;  /*pour arrondir les coins de l'élément*/
+    font-weight: 700;     /*specification type de gras*/
+  }
+  
+  
+  
+  #cb {
+    width: 125px; /*définir la largeur de la boîte du contenu d'un élément*/
+    height: 50px; /*définit la hauteur de la boîte de contenu d'un élément*/
+    left: 410px;
+    bottom: 325px;
+    background-color:#fff;
+    border: 5px solid #1C12AA; /*definir le style,l'épaisseur et la couleur de la bordure */ 
+    text-align: center;          /*permet d'aligner le texte d'un element au centre*/
+    line-height: 38px; 
+    color: #11AEEF;            /*changer la couleur de l'élément*/
+    position: relative; 
+    z-index: 1; 
+    cursor: pointer;            /*definir la forme du curseur lorsque que le pointeur est au dessus*/
+    transition: all 0.60s ease; /*definition de la durée d'une effet de transition*/
+  }
+  
+  #cb:hover {
+  border-radius: 50px; 
+  background-color:#11AEEF; 
+  color: #fff; 
+  transition: all 0.60s ease;
+  border: 5px solid #1C12AA; 
+  }
+  /*fin du css pour le bouton valider */

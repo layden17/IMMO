@@ -1,0 +1,259 @@
+
+.question{
+    position: relative;
+    line-height: 150%;
+    bottom: 350px;
+    left : 25rem;
+    z-index: 2;
+}
+
+input[name="submit"] {
+  background:#64C760;
+  border-radius: 20px;
+  font-weight: 700;
+}
+
+
+
+#cb {
+  width: 125px; 
+  height: 50px; 
+  left: 410px;
+  bottom: 325px;
+  background-color:#fff;
+  border: 5px solid #1C12AA; 
+  text-align: center; 
+  line-height: 38px; 
+  color: #11AEEF; 
+  position: relative; 
+  z-index: 1; 
+  cursor: pointer;
+  transition: all 0.60s ease;
+}
+
+#cb:hover {
+border-radius: 50px; 
+background-color:#11AEEF; 
+color: #fff; 
+transition: all 0.60s ease;
+border: 5px solid #1C12AA; 
+}
+
+
+
+/*debut du css pour la langue*/
+
+.drapeau{
+  height: 40px; /*définit la hauteur de la boîte de contenu d'un élément*/
+  width: 40px; /*définir la largeur de la boîte du contenu d'un élément*/
+  border-radius: 50%;
+  border: 0.15rem solid black;
+}
+
+input[type="radio"].leslangues {
+  display: none; /*cacher les checkbox*/
+}
+
+label[for^="langue_"]{
+    position: relative;
+    padding: 1px; /*permet de définir les différents écarts de remplissage sur les quatre côtés d'un élément*/
+    display: block;
+    margin: 1px; /*définit la taille des marges sur les quatre côtés de l'élément*/
+    cursor: pointer; /*définit la forme du curseur*/
+}
+
+label[for^="langue_"]img {
+  height: 100px; /*définit la hauteur de la boîte de contenu d'un élément*/
+  width: 100px; /*définir la largeur de la boîte du contenu d'un élément*/
+  transition-duration: 0.2s;/*durer de l'effet visuel*/
+
+}
+
+:checked + label[for^="langue_"] img {
+  border-radius: 300px;
+  transform: scale(0.9);
+  box-shadow: 0 0 20px rgb(0, 0, 0);
+  z-index: -1;
+}
+
+form.langues{
+  z-index: -1;
+  margin-top:20px;
+  bottom: 60px;
+}
+
+/*debut css confirm langue*/
+
+button[class="slide"] {
+  margin-left: 340%;
+  display: block;
+  height: 40px;
+  width: 40px;
+  border-radius: 300px;
+  font-size: 1em;
+  background: white;
+  color: #64C760;
+  border: 0.25rem solid #64C760;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+button[class="slide"]:hover {
+  color: white;
+}
+button[class="slide"]::after {
+  content: "";
+  background: #64C760;
+  position: absolute;
+  z-index: -1;
+  padding: 0.85em 0.75em;
+  display: block;
+}
+button[class="slide"]::after {
+  transition: all 0.50s;
+}
+button[class="slide"]:hover::after {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: all 0.50s;
+}
+button.slide::after {
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  right: 100%;
+}
+
+/*fin css confirm langue*/
+
+/*fin du css pour la langue*/
+
+/*debut du css pour la selection d'images*/
+.images
+{ 
+      list-style-type: none; /*permet de définir l'apparence de la puce d'un élément de liste*/
+      z-index: 5;
+}
+
+bloc {
+  display: inline-block; /*afficher un élément en tant que conteneur de bloc*/
+}
+
+input[type="radio"].cases {
+  display: none; /*cacher les checkbox*/
+}
+
+label {
+    position: relative;
+    border: 2px solid #fff; /*permet de définir les propriétés liées à la bordure (fff couleur blanc) */
+    padding: 1px; /*permet de définir les différents écarts de remplissage sur les quatre côtés d'un élément*/
+    display: block;
+    margin: 1px; /*définit la taille des marges sur les quatre côtés de l'élément*/
+    cursor: pointer; /*définit la forme du curseur*/
+}
+
+label img {
+  height: 100px; /*définit la hauteur de la boîte de contenu d'un élément*/
+  width: 100px; /*définir la largeur de la boîte du contenu d'un élément*/
+  transition-duration: 0.2s;/*durer de l'effet visuel*/
+
+}
+
+:checked + label img {
+  transform: scale(0.9);
+  box-shadow: 0 0 5px #45db1f;
+  z-index: -1;
+}
+
+/*fin du css pour la selection d'images*/
+
+/*debut css radio button question*/
+span.consigne {
+  font-weight: bold;
+  text-decoration: underline overline #1C12AA;
+
+}
+
+/*fin radio button question*/
+
+form.myForm {
+  position: relative;
+  width  : 740px;
+  height : 475px;
+  margin : 0 auto;
+
+}
+
+body{
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  background-color: #ffffff;
+  padding: 0 275px 10px 20px;
+  border: 5px solid black;
+  border-radius : 5%;
+}
+
+
+@media screen and (max-width: 901px) {
+
+  .question{
+     position: relative;
+     line-height: 150%;
+     bottom: 0px;
+     z-index: 2;
+     left: 0px;
+  }
+ 
+  form.myForm {
+   position: relative;
+   width  : 450px;
+   height : 750px;
+   margin : 0 auto;
+  }
+     
+  body{
+   margin-left: auto;
+   margin-right: auto;
+   background-color: rgb(255, 255, 255);
+   width: 600px;
+   background-color: #ffffff;
+   padding: 0 20px 10px 20px;
+   border: 5px solid black;
+   border-radius : 5%;
+  }
+
+ #cb {
+  width: 125px; 
+  height: 50px; 
+  left: 5px;
+  bottom: 0px;
+  background-color:#fff;
+  border: 5px solid #1C12AA; 
+  text-align: center; 
+  line-height: 38px; 
+  color: #11AEEF; 
+  position: relative; 
+  z-index: 1; 
+  cursor: pointer;
+  transition: all 0.60s ease;
+  }
+
+}
+  
+@media screen and (max-width: 541px) {
+  span.consigne {
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: underline overline #1C12AA;
+
+  }
+
+}
+
+.actualiser {
+    height: 30px;
+    width: 30px;
+    }

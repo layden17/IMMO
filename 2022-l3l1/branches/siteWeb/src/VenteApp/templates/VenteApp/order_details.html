@@ -1,0 +1,162 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+{% load crispy_forms_tags  %}
+{% load humanize %}
+{% block content %}
+<style>
+
+	.annuler {
+     text-align: center;`
+  }
+	.annuler a{
+     display: center;
+  }
+</style>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+	<div class="mdc-card py-2">
+		<div class='containera-fluid'>
+			<section id='main-content'>
+				<div class='card'>
+
+
+					<div class='card-title'>
+						Détails de la commande
+					</div>
+					<div class='card-body'>
+
+						<ul>
+							<li> <p> {{ commande.client }} </p> </li>
+							<li> <p> Date de la commande: {{ commande.date_creation }} </p> </li>
+							<li> <p> <label> Adresse de livraison : </label>  {{ commande.client.adresse }} </p> </li>
+							<li> <p> <label> Contact : </label>  {{ commande.client.tel}} </p> </li>
+							<li> <p> <label> Quantité: </label>  {{ commande.total_qty }} </p> </li>
+							<li> <p> <label> Total de la commande : </label> <b> {{ commande.total_order | intcomma }} </b> </p> </li>
+						</li>
+
+					</div>
+				</div>
+
+				<div class='card'>
+					<div class='table-responsive'>
+					{% if commande.article_set.exists %}
+					<table class='table table-hover' id='myTable'>
+						<thead>
+							<tr>
+								<th>Produit</th>
+								<th>Prix à l'unité</th>
+								<th>Quantité</th>
+								<th>Prix</th>
+							</tr>	
+						</thead>
+						<tbody> 
+
+					{% for orderitem in commande.article_set.all %}
+							<tr>
+								<td>{{ orderitem.produit }}</td>
+								{% if orderitem.unite == "Par barre" %}
+									<td>{{ orderitem.produit.prix_barre }} {{ orderitem.unite }}</td>
+								{% elif orderitem.unite == 'Par mètre' %}
+									<td>{{ orderitem.produit.prix_metre }} {{ orderitem.unite }}</td>
+								{% elif orderitem.unite == 'Par quintal' %}
+									<td>{{ orderitem.produit.prix_quintal }} {{ orderitem.unite }}</td>
+								{% endif %}
+
+								<td>{{ orderitem.quantite }}</td>
+								<td>{{ orderitem.price | intcomma }}</td>
+							</tr>
+
+						{% endfor %}
+
+						
+						</tbody>
+
+
+
+					</table>
+					{% else %}
+					{% endif %}
+					<br>
+					{% if commande.articlecadre_set.exists %}
+					<table class='table table-hover' id='myTable'>
+						<thead>
+							<tr>
+								<th>Cadre</th>
+								<th>Prix à l'unité</th>
+								<th>Quantité</th>
+								<th>Prix</th>
+							</tr>
+						</thead>
+						<tbody>
+
+					{% for orderitem in commande.articlecadre_set.all %}
+							<tr>
+								<td>{{ orderitem.cadre }}</td>
+								<td>{{ orderitem.cadre.prix }}</td>
+								<td>{{ orderitem.quantite }}</td>
+								<td>{{ orderitem.price | intcomma }}</td>
+							</tr>
+						{% endfor %}
+
+						</tbody>
+
+
+
+					</table>
+					{% else %}
+					{% endif %}
+
+					{% if commande.articleautre_set.exists %}
+					<table class='table table-hover' id='myTable'>
+						<thead>
+							<tr>
+								<th>Autre(s) produit(s)</th>
+								<th>Prix à l'unité</th>
+								<th>Quantité</th>
+								<th>Prix</th>
+							</tr>
+						</thead>
+						<tbody>
+
+					{% for orderitem in commande.articleautre_set.all %}
+							<tr>
+								<td>{{ orderitem.produit.designation }}</td>
+								<td>{{ orderitem.produit.prix_vente }}</td>
+								<td>{{ orderitem.quantite }}</td>
+								<td>{{ orderitem.price | intcomma }}</td>
+							</tr>
+						{% endfor %}
+
+						</tbody>
+
+
+
+					</table>
+					{% else %}
+					{% endif %}
+
+					</div>
+
+
+				</div>
+			</section>
+		</div>
+		<br><br>
+
+		<div class="annuler">
+		<a class="btn btn-outline-dark" href="{% url 'VenteApp:venteApp' %}">Annuler</a>
+		</div>
+
+	</div>
+
+	<!-- /main -->
+</div>
+<!-- /content-wrap -->
+{% endblock content %}
+
+{% block javascript %}
+{% endblock %}
+{% endblock pageContent %}

@@ -1,0 +1,87 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+
+{% block content %}
+{% load humanize %}
+<div class="content-wrap">
+	<div class='main'>
+	    <div class="page-header">
+		<div class="page-title">
+			<h1> Orders </h1>
+		</div>
+	    </div>
+
+		<div class='containera-fluid'>
+			<section id='main-content'>
+
+				<div class='card'>
+					<div class='card-body'>
+						<div class='table-responsive'>
+
+							<p>
+							<a href='{% url "VenteApp:order_create" %}'>
+							<input type='button' id='checkout_btn' value='Create New Order' />
+							</a>
+							</p>
+
+							<table class='table table-hover' id='myTable'>
+								<thead>
+									<tr>
+										<th>Date</th>
+										<th>Client</th>
+										<th>Quantité</th>
+										<th>Total</th>
+										<th></th>
+										<th></th>
+
+									</tr>	
+								</thead>
+								<tbody> 
+									{% for order in orders %}
+									<tr>
+										<td>{{ order.date_creation }} </td>
+										<td>
+											<a href='{% url "VenteApp:order_details" order.id %}' >
+											{{ order.client }}
+											</a>
+										</td>
+										<td> {{ order.total_qty }}</td>
+										<td> {{ order.total_order | intcomma }}</td>
+										<td>
+											<a href='{% url "VenteApp:update_order" order.id %}'>
+											<i class='ti-pencil'></i>
+											</a>
+										</td>
+										<td>
+											<a href='{% url "VenteApp:delete_order" order.id %}'>
+											<i class='ti-trash'></i>
+											</a>
+										</td>
+
+
+									</tr>
+									{% endfor %}
+								
+								</tbody>
+
+							</table>
+
+
+						</div>	
+					</div>
+				</div>
+
+			</section>
+		</div>
+		<!-- / container -->
+
+	</div>
+	<!-- /main -->
+</div>
+<!-- /content-wrap -->
+
+{% endblock content %}
+{% endblock pageContent %}
+
+
+

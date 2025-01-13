@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achat</title>
+</head>
+<body>
+  <h1>Liste des achats</h1>
+  <button type = submit class="save btn btn-default"><a href="{% url 'AchatApp:ajout_achat' %}">Ajouter un Achat</a></button>
+  <button type = submit class="save btn btn-default"><a href="{% url 'AchatApp:ajouter_produits' %}">Ajouter un Produit</a></button>
+  <table  border="2">
+    <thead>
+      <tr>
+        <th>Fournisseur</th>
+        <th>produits</th>
+        <th>date achat</th>
+        <th>prix_total</th>
+        <th>Facture</th>
+        <th>Versement</th>
+        <th>Dette</th>
+        <th>Action</th>
+
+      </tr>
+    </thead>
+    <tbody>
+      {% for achat in achats %}
+        <tr>
+          <td>{{ achat.fournisseur.Raison_social }}</td>
+          <td>
+            {% for produit in achat.produits.all %}
+              {{ produit.designation }}<br>
+            {% endfor %}
+          </td>
+          <td>{{ achat.date_achat|date:"d/m/Y " }}</td>
+          <td>{{ achat.prix_total|floatformat:2 }} €</td>
+          {% if achat.fichier %}
+          <td> <a href="{{achat.fichier.url}}">Voir la Facture</a><br></td>
+        {% else %}
+        <td>Pas de Facture</td>
+        {% endif %}         
+         <td>{{achat.Versement}}</td>
+          <td>{{achat.Dette}}</td>
+          <td>
+            <a href="{% url 'AchatApp:modifier_achat' achat.pk %}" class="btn btn-warning">Modifier</a>
+            <form action="{% url 'AchatApp:supprimer_achat' achat.pk %}" method="POST" class="d-inline">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Supprimer</button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">Aucun achat trouvé.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+</body>
+</html>
+  

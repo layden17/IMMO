@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supprimer Fournisseur</title>
+</head>
+<body>
+    <h1>Supprimer un fournisseur</h1>
+<p>Êtes-vous sûr de vouloir supprimer le fournisseur "{{ Fournisseur.Raison_social }}" ?</p>
+<form method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-danger">Confirmer la suppression</button>
+  <a href="{% url 'FournisseursApp:fournisseurs' %}" class="btn btn-secondary">Annuler</a>
+</form>
+</body>
+</html>

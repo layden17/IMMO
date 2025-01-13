@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier fournisseur</title>
+</head>
+<body>
+    <h1>Modifier un fournisseur</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Modifier" class="btn btn-primary">
+        <a class="btn btn-secondary" href="{% url "FournisseursApp:fournisseurs" %}" role="button">Annuler</a>
+
+    </form>
+</body>
+</html>

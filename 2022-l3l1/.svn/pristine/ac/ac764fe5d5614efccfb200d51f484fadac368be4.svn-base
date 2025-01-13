@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="06ca2a08-668d-490f-bda4-f48e95c4db90" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectId" id="2NQ1Y1kQMde5dCgO6hFSeK41qMC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Julien/OneDrive/Documents/Etudiant/Etude/Licence/L3/S6/Projet/L3L/branches/siteWeb/src&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.4448276&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Julien\OneDrive\Documents\Etudiant\Licence\L3\S6\Projet\L3L\branches\siteWeb\src\static\images" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="06ca2a08-668d-490f-bda4-f48e95c4db90" name="Changes" comment="" />
+      <created>1679581537368</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679581537368</updated>
+      <workItem from="1679581538132" duration="1924000" />
+      <workItem from="1679754943318" duration="399000" />
+      <workItem from="1679755367864" duration="6241000" />
+      <workItem from="1679761814367" duration="17643000" />
+      <workItem from="1679782583559" duration="1171000" />
+      <workItem from="1679817463187" duration="23188000" />
+      <workItem from="1679863400455" duration="3319000" />
+      <workItem from="1679938890795" duration="1224000" />
+      <workItem from="1679940171693" duration="12193000" />
+      <workItem from="1679953006622" duration="79000" />
+      <workItem from="1680008692661" duration="752000" />
+      <workItem from="1680009465585" duration="17098000" />
+      <workItem from="1680032781203" duration="670000" />
+      <workItem from="1680033481762" duration="2087000" />
+      <workItem from="1680035631523" duration="954000" />
+      <workItem from="1680036612921" duration="4134000" />
+      <workItem from="1680040836547" duration="4599000" />
+      <workItem from="1680087116159" duration="31494000" />
+      <workItem from="1680126960165" duration="378000" />
+      <workItem from="1680193815497" duration="363000" />
+      <workItem from="1680194962198" duration="5201000" />
+      <workItem from="1680200745945" duration="3677000" />
+      <workItem from="1680346420794" duration="1257000" />
+      <workItem from="1680358112131" duration="7683000" />
+      <workItem from="1680373458710" duration="43000" />
+      <workItem from="1680373516222" duration="7791000" />
+      <workItem from="1680425781374" duration="13864000" />
+      <workItem from="1680689225730" duration="15713000" />
+      <workItem from="1680803412621" duration="211000" />
+      <workItem from="1680803637697" duration="1090000" />
+      <workItem from="1680805828584" duration="1005000" />
+      <workItem from="1680806931292" duration="1130000" />
+      <workItem from="1680808083178" duration="13000" />
+      <workItem from="1680808108148" duration="1208000" />
+      <workItem from="1680809425524" duration="1824000" />
+      <workItem from="1680812107505" duration="1488000" />
+      <workItem from="1680813779501" duration="222000" />
+      <workItem from="1680815580654" duration="18000" />
+      <workItem from="1680863880980" duration="23700000" />
+      <workItem from="1680957093177" duration="20530000" />
+      <workItem from="1680988197912" duration="2498000" />
+      <workItem from="1680995437853" duration="39000" />
+      <workItem from="1680995515413" duration="74000" />
+      <workItem from="1680995686827" duration="48000" />
+      <workItem from="1681027130659" duration="1824000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
+  </component>
+</project>

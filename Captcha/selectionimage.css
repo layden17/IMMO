@@ -1,0 +1,36 @@
+/*debut du css pour la selection d'images*/
+.images
+{ 
+      list-style-type: none; /*permet de définir l'apparence de la puce d'un élément de liste (un cercle noir,blanc,rien,etc...)*/
+      z-index: 5;
+}
+
+bloc {
+  display: inline-block; /*afficher un élément en tant que conteneur de bloc*/
+}
+
+input[type="radio"].cases {
+  display: none; /*cacher les radio buttons*/
+}
+
+label {
+    position: relative;
+    border: 2px solid #fff;
+    padding: 1px; 
+    display: block;
+    margin: 1px; 
+    cursor: pointer; 
+}
+
+label img {
+  height: 100px; 
+  width: 100px; 
+  transition-duration: 0.2s;
+
+}
+
+:checked + label img {
+  transform: scale(0.9);
+  box-shadow: 0 0 5px #45db1f;
+  z-index: -1;
+}

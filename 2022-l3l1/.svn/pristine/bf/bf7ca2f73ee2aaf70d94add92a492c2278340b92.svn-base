@@ -1,0 +1,35 @@
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <!-- Bloc qui affiche un tableau contenant la liste des catégories -->
+    <table border="2" style="border-collapse:collapse;">
+        <thead>
+        <tr>
+            <th>Libellé</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Boucle qui parcourt la liste des catégories et affiche leur nom -->
+        {% for categorie in categories %}
+            <tr>
+                <td>{{ categorie.name }}</td>
+                <td>
+                    <!-- Liens pour modifier ou supprimer la catégorie en question -->
+                    <a href="{% url 'ProduitApp:modifier_categorie' categorie.pk %}">Modifier</a>
+                    <a href="{% url 'ProduitApp:supprimer_categorie' categorie.pk %}">supprimer</a>
+                </td>
+            </tr>
+            {% empty %}
+            <!-- Cas où il n'y a pas de catégorie -->
+            <tr>
+                <td colspan="2">Aucune catégorie trouvée.</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <br>
+    <!-- Bouton pour ajouter une nouvelle catégorie -->
+    <button><a href="{%url 'ProduitApp:create_categorie'%}" style="text-decoration:none;">Ajouter une catégorie </a></button>
+
+{% endblock %}

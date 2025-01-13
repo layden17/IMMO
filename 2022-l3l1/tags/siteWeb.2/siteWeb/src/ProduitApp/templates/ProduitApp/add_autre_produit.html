@@ -1,0 +1,20 @@
+<!-- Ce code HTML étend la base HTML de la page des produits -->
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <!-- Un titre pour la section d'ajout de produits -->
+    <h1>Ajouter un produit</h1>
+
+    <!-- Un formulaire pour ajouter un produit avec une méthode POST pour envoyer les données -->
+    <form method="post">
+
+        <!-- Un jeton CSRF pour protéger contre les attaques CSRF -->
+        {% csrf_token %}
+
+        <!-- Afficher les champs de formulaire pour ajouter un produit -->
+        {{ form.as_p }}
+
+        <!-- Un bouton pour envoyer les données du formulaire -->
+        <button type="submit">Ajouter</button>
+    </form>
+{% endblock %}

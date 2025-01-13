@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.2.0/decimal.min.js"></script>
+</head>
+<body>
+<h1>Statistiques</h1>
+<br><br>
+<h2>Produit</h2>
+<div style="display: flex; justify-content: space-around;">
+    <div id="container1" style="width: 40%;">
+        <canvas id="top5_prix_cadre"></canvas>
+    </div>
+
+    <div id="container2" style="width: 40%;">
+        <canvas id="prix_consommation"></canvas>
+    </div>
+</div>
+
+
+<h2>Vente</h2>
+
+<h2>Achat</h2>
+<p>{{ prix_total_achat }}</p>
+<h2>Client</h2>
+<p>{{ nb_client }}</p>
+
+<h2>Fournisseur</h2>
+<p>{{ nb_fournisseur }}</p>
+
+<script>
+    //graphe pour top 5 prix cadre
+    var data1 = {
+        datasets: [{
+            data: {{ data1|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080'  // violet
+            ],
+            label: 'Prix des top 5 cadres'
+        }],
+        labels: {{ labels1|safe }}
+    };
+
+    var options1 = {
+        responsive: true
+    };
+
+    var config1 = {
+        type: 'line',
+        data: data1,
+        options: options1
+    };
+
+    //graphe pour prix et consommation
+    var data2 = {
+        datasets: [{
+            data: [{{ prix_total_cadre }},{{ consommation_total }}, {{ prix_service_total }}, {{ nb_cadre }} ],
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+
+            ],
+            label: 'Métadonnées de cadre'
+        }],
+        labels: ['Prix total', 'Consommation totale', 'Prix service','Nombre de cadre']
+    };
+    var options2 = {
+        responsive: true,
+    };
+
+    var config2 = {
+        type: 'pie',
+        data: data2,
+        options: options2
+    };
+
+
+    window.onload = function() {
+        var ctx1 = document.getElementById('top5_prix_cadre').getContext('2d');
+        window.myPie1 = new Chart(ctx1, config1);
+
+        var ctx2 = document.getElementById('prix_consommation').getContext('2d');
+        window.myPie2 = new Chart(ctx2, config2);
+
+
+    };
+</script>
+</body>
+</html>

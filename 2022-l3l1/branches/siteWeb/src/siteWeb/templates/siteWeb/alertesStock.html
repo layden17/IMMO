@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Produits en rupture de stock</title>
+</head>
+<body>
+    <h1>Produits brut en rupture de stock</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Désignation</th>
+                <th>Stock en quintal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in produit_brut_en_rupture %}
+                <tr>
+                    <td>{{ produit.type_fer }}</td>
+                    <td>{{ produit.stock_quintal }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">Aucun produit brut en rupture de stock.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+
+    <h1>Autres produits  en rupture de stock</h1>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Désignation</th>
+                <th>Stock en quintal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for produit in autre_produit_en_rupture %}
+                <tr>
+                    <td>{{ produit.designation }}</td>
+                    <td>{{ produit.quantite }}</td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="2">Aucun  autre produit en rupture de stock.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+    
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <!-- Ce bloc "content" sera rempli avec le contenu spécifique à cette template. -->
+    <form method="post">
+        {% csrf_token %}
+        <!-- Demande de confirmation de suppression -->
+        <p>Etes vous sûr de vouloir supprimer "{{ object }}"?</p>
+        {{ form }}
+        <!-- Bouton pour confirmer la suppression -->
+        <input type="submit" value="Confirmer">
+        <!-- Bouton pour annuler la suppression et rediriger vers la page de création de catégorie -->
+        <button><a href="{% url 'ProduitApp:create_categorie' %}"> Annuler</a></button>
+    </form>
+{% endblock %}

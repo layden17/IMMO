@@ -1,0 +1,25 @@
+<!-- Début du document HTML -->
+<html lang="fr">
+<head>
+    <!-- Les métadonnées -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Le titre de la page -->
+    <title>Interface produit</title>
+</head>
+<body>
+<!-- La barre de navigation -->
+<nav>
+    <ul>
+        <li><a href="{% url 'ProduitApp:produit_brut' %}">Produits bruts</a></li>
+        <li><a href="{% url 'ProduitApp:cadre' %}">Cadres</a></li>
+        <li><a href="{% url 'ProduitApp:autre_produit' %}">Autres produits</a></li>
+    </ul>
+    <!-- Bouton pour accéder à la page des catégories -->
+    <button><a href="{% url 'ProduitApp:categorie' %}" > catégories </a></button>
+</nav>
+<!-- Contenu spécifique à chaque page -->
+{% block content %}{% endblock %}
+</body>
+</html>

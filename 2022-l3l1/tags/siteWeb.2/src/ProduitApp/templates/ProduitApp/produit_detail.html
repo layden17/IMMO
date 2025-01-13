@@ -1,0 +1,28 @@
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <h1>Détails du produit : {{ object.designation }}</h1>
+
+    <!-- Affichage des détails du produit -->
+    <p>catégorie :  {{ object.categorie }} </p>
+    <p>prix d'achat en quintal : {{ object.prix_achat_quintal}} </p>
+    <p>prix d'achat en metre : {{ object.prix_achat_metre}} </p>
+    <p>prix d'achat en barre : {{ object.prix_achat_barre}} </p>
+    <br>
+    <br>
+    <p>prix de vente en quintal :{{ object.prix_quintal}}</p>
+    <p>prix de vente en mètre {{ object.prix_metre}}</p>
+    <p>prix de vente en barre: {{ object.prix_barre}}</p>
+    <br><br>
+    <p>stock en quintal :  {{ object.stock_quintal}}</p>
+    <p>stock en metre :  {{ object.stock_metre}}</p>
+    <p>stock en barre :  {{ object.stock_barre}}</p>
+    <br><br>
+    <p>TVA : {{ object.TVA }}</p>
+
+    <!-- Liens pour modifier ou supprimer le produit -->
+    <a href="{% url 'ProduitApp:modifier_produit' object.pk %}">Modifier</a>
+    <a href="{% url 'ProduitApp:supprimer_produit_brut' object.pk %}">supprimer</a>
+
+    <button><a href="{% url 'ProduitApp:produit_brut' %}"> Annuler</a></button>
+{% endblock %}

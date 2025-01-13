@@ -1,0 +1,19 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="col-md-6">
+        <div class ="card card-body">
+            <p>Étes-vous sûr de vouloir supprimer le client {{item}} ?</p>
+            <form action="{% url 'ClientApp:delete_customer' item.id %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                <a class="btn btn-warning" href="{% url 'ClientApp:clientApp' %}">Annuler</a>
+                <input class="btn btn-danger" type="submit" value="Confirmer" name="Confirmer">
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock pageContent %}

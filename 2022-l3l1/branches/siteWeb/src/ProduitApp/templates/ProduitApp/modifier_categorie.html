@@ -1,0 +1,11 @@
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <!-- Le bloc content contient le formulaire de modification de la catégorie -->
+    <h1>Modifier la catégorie</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }} <!-- Affiche le formulaire généré automatiquement -->
+        <input type="submit" value="Modifier">
+    </form>
+{% endblock %}

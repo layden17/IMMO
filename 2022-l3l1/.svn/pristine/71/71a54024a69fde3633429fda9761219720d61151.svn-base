@@ -1,0 +1,43 @@
+{% extends "siteWeb/base.html" %}{% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<h2 class="text center">Résultats des recherches : </h2>
+
+<div class="container">
+
+    <table border="1" style="border-collapse:collapse;">
+        <thead>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Email</th>
+            <th>Type</th>
+            <th>Adresse</th>
+             <th>Tel</th>
+             <th>Dette</th>
+             <th>Piece d'identité</th>
+        </thead>
+        <tbody>
+        {% if client %}
+            {% for client in clients %}
+            <tr>
+                <td>{{client.prenom }}</td>
+                <td>{{client.nom }}</td>
+                <td>{{client.email}}</td>
+                <td>{{client.type}}</td>
+                <td>{{client.adresse}}</td>
+                <td>{{client.tel }}</td>
+                <td>{{client.dette }}</td>
+                <td>{{client.piece_ID }}</td>
+                <td><a class ="btn btn-sm btn-info" href="{% url 'ClientApp:update_customer' command.id %}">modifier</a></td>
+                <td><a class ="btn btn-sm btn-danger" href="{% url 'ClientApp:delete_customer' command.id %}">supprimer</a></td>
+            </tr>
+            {% endfor %}
+        {% else %}
+            <p>Aucun client</p>
+        {% endif %}
+        </tbody>
+    </table>
+    <br>
+    <a href="{% url 'ClientApp:clientApp' %}">Revenir</a>
+</div>
+</div>
+{% endblock pageContent %}

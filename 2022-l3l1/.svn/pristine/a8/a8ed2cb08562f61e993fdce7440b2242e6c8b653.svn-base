@@ -1,0 +1,15 @@
+
+{% block content %}
+
+
+<h1>Create Category</h1><!-- on affiche un titre pour le formulaire de modification -->
+<form method="POST"><!-- on utilise la méthode POST pour envoyer le formulaire -->
+    {% csrf_token %}<!-- on inclut le token CSRF pour protéger le formulaire contre les attaques CSRF -->
+    {{ form.as_p }}<!-- on affiche le formulaire sous forme de paragraphes -->
+    <button type="submit">Créer</button><!-- on affiche un bouton pour soumettre le formulaire -->
+</form>
+
+{% endblock %}
+
+
+

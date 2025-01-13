@@ -1,0 +1,59 @@
+
+{% block content %}
+    <!-- Le bloc content représente le contenu de la page -->
+    <h1>Liste des cadres</h1>
+    <br>
+    <table border="1" style="border-collapse:collapse;">
+        <!-- On crée un tableau HTML pour afficher les cadres -->
+        <thead>
+        <tr>
+            <!-- Les colonnes du tableau sont cliquables pour trier les cadres en fonction de l'attribut correspondant -->
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'cadre_choix' %}">Cadre</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'article_choix' %}">Type article</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'longueur' %}">Longueur</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'largeur' %}">Largeur</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'crochet' %}">Crochet</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'prix_service' %}">Prix service</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'chute' %}">Chute</a></th>
+
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'consommation_sans_chute' %}">Consommation sans chute</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'consommation' %}">Consommation</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'crochet_opti' %}">Crochet optimisé</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'chute_valeur' %}">Taille chute</a></th>
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'max' %}">Max</a></th>
+
+            <th><a href="{% url 'ProduitApp:tri_cadre' 'prix' %}">Prix total</a></th>
+        <tr>
+        </thead>
+        <tbody>
+        <!-- On boucle sur les cadres passés en paramètre pour les afficher dans le tableau -->
+        {% for cadre in cadres %}
+            <tr>
+                <!-- On affiche les attributs de chaque cadre dans les colonnes correspondantes -->
+                <td>{{ cadre.cadre_choix }}</td>
+                <td>{% for produit in cadre.article_choix.all %}{{ produit }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+                <td>{{ cadre.longueur }}</td>
+                <td>{{ cadre.largeur }}</td>
+                <td>{{ cadre.crochet_opti }}</td>
+                <td>{{ cadre.prix_service }}</td>
+                <td>{{ cadre.chute }}</td>
+                <td>{{ cadre.consommation_sans_chute }}</td>
+                <td>{{ cadre.consommation }}</td>
+                <td>{{ cadre.crochet }}</td>
+                <td>{{ cadre.chute_valeur }}</td>
+                <td>{{ cadre.max }}</td>
+                <td>{{ cadre.prix }}</td>
+
+                <td><a href="{% url 'ProduitApp:modifier_cadre' cadre.id %}">Modifier</a></td>
+                <td><a href="{% url 'ProduitApp:supprimer_cadre' cadre.id %}">Supprimer</a></td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <button>
+        <a href="{% url 'ProduitApp:create_cadre' %}">Créer un cadre</a>
+    </button>
+{% endblock %}
+
+

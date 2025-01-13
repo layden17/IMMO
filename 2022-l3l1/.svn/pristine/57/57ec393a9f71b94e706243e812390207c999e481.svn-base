@@ -1,0 +1,55 @@
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <h1>Liste des produits brut</h1>
+    <table border="2" style="border-collapse:collapse;">
+        <thead>
+        <tr>
+            <th>Désignation</th>
+            <th>TVA</th>
+            <th>diametre</th>
+            <th>Prix d'achat par mètre</th>
+            <th>prix de vente par mètre</th>
+            <th>quantite en stock (m)</th>
+            <th>Prix d'achat en barre(à l'unité) </th>
+            <th>prix de vente par barre</th>
+            <th>quantite en stock en barre</th>
+            <th>Prix d'achat par quintal</th>
+            <th>prix de vente par quintal</th>
+            <th>quantite en stock (quintal)</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits_bruts %}
+            <tr>
+                    <td>{{ produit.designation }}</td>
+                    <td>{{produit.TVA}}</td>
+                    <td>{{produit.type_fer}}</td>
+                    <td>{{ produit.prix_achat_metre}}</td>
+                    <td>{{ produit.prix_metre}}</td>
+                    <td>{{ produit.stock_metre }}</td>
+                    <td>{{ produit.prix_achat_barre }}</td>
+                    <td>{{produit.prix_barre}}</td>
+                    <td>{{produit.stock_barre}}</td>
+                    <td>{{produit.prix_achat_quintal}}</td>
+                    <td>{{produit.prix_quintal}}</td>
+                    <td>{{produit.stock_quintal}}</td>  
+                    
+                    <!-- 
+                    
+                        <a href="{% url 'ProduitApp:modifier_produit' produit.id %}">Modifier</a>
+                         <td><a href="{% url 'ProduitApp:produit_detail' produit.id %}">Détails</a></td>
+
+                    -->
+                    <td><a href="{{ produit.get_absolute_url }}">Détails</a></td>
+                        
+                       
+            </tr>
+           
+        {% endfor %}
+        </tbody>
+    </table>
+    <br><br>
+    <button><a href="{%url 'ProduitApp:add_produit_brut'%}" style="text-decoration:none;">Ajouter un produit brut</a></button>
+{% endblock %}

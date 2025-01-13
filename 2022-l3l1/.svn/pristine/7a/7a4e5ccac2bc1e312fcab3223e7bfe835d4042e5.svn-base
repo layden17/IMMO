@@ -1,0 +1,94 @@
+{% extends 'ProduitApp/produit_base.html' %}
+{%load static %}
+{% block content %}
+    <!-- Ce bloc "content" sera rempli avec le contenu spécifique à cette template. -->
+    <h1>Liste des produits brut</h1>
+
+    
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" style=" color: red;">{{ message }}</div>
+    {% endfor %}
+    {% endif %}
+
+        
+
+<div class="table-responsive">
+
+    <table border="2" style="border-collapse:collapse;">
+        <thead>
+        <tr>
+            
+            <th>diamètre</th>
+            <th>Prix d'achat par quintal</th>
+            <th>Prix d'achat en barre(à l'unité) </th>
+            <th>Prix d'achat par mètre</th>
+           
+            <th>prix de vente par quintal</th>
+            <th>prix de vente par barre</th>
+            <th>prix de vente par mètre</th>
+
+            
+            
+            <th>quantite en stock (quintal)</th>
+            <th>quantite en stock en barre</th>
+            <th>quantite en stock (m)</th>
+
+            <th>quantité alertée en quintal</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+            {% for produit in produits_bruts %}
+            <tr>
+
+
+                <form method="post" action="{% url 'ProduitApp:modifier_produit' produit.id %}">
+                    {% csrf_token %}
+                    <td><input type="text" name="type_fer" value="{{ produit.type_fer }}"></td>
+
+                    <td><input type="text" name="prix_achat_quintal" value="{{ produit.prix_achat_quintal }}" min="0"  ></td>
+                    <td><input type="text" name="prix_achat_barre" value="{{ produit.prix_achat_barre }}" ></td>
+                    <td><input type="text" name="prix_achat_metre" value="{{ produit.prix_achat_metre }}" ></td>
+
+                    
+
+                    <td><input type="text" name="prix_quintal" value="{{ produit.prix_quintal }}" min="0" ></td>
+                    <td><input type="text" name="prix_barre" value="{{ produit.prix_barre }}" ></td>
+                    <td><input type="textr" name="prix_metre" value="{{ produit.prix_metre }}" ></td>
+
+
+                    <td><input type="text" name="stock_quintal" value="{{ produit.stock_quintal }}" min="0"  ></td>
+                    <td><input type="text" name="stock_barre" value="{{ produit.stock_barre }}" ></td>
+                    <td><input type="text" name="stock_metre" value="{{ produit.stock_metre }}" ></td>
+
+
+
+                    <td><input type="text" name="stock_alerte" value="{{ produit.stock_alerte }}" ></td>
+                    
+                    <td><input type="submit" value="Modifier"></td>
+                </form>
+
+
+
+            </tr>
+
+        {% endfor %}
+
+
+       
+    </table>
+
+</div>
+
+
+
+        
+
+
+    <br>
+    <button><a href="{% url 'ProduitApp:historique_prix_achat_quintal' %}">Historique</a></button>
+
+
+
+    
+{% endblock %}

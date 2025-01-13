@@ -1,0 +1,197 @@
+<!-- Déclaration du type de document -->
+<!DOCTYPE html>
+
+<!-- Chargement des fichiers statiques -->
+{% load static %}
+
+<!-- Début de la balise HTML -->
+<html lang="en">
+
+<!-- Début de la balise Head -->
+<head>
+    <!-- Déclaration du type d'encodage des caractères -->
+    <meta charset="UTF-8">
+
+    <!-- Titre de la page -->
+    <title>Create cadre</title>
+
+    <!-- Chargement de Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</head>
+
+<!-- Début de la balise Body -->
+<body>
+
+<!-- Bloc principal de contenu -->
+{% block content %}
+
+    <!-- Titre de la page -->
+    <h1>Créer un cadre</h1>
+
+    <!-- Formulaire d'envoi -->
+    <form enctype="multipart/form-data" method='POST'>
+
+        <!-- Protection contre les attaques CSRF -->
+        {% csrf_token %}
+
+        <br><br>
+        <h2>Information du stockage</h2>
+        <!-- Champ pour le prix du quintal -->
+        <div>
+            <label for="id_prix_quntal">Prix quintal (DA)</label>
+            <input name="prix_quntal" id="id_prix_quntal" readonly>
+        </div>
+
+        <!-- Champ pour le nombre de barres -->
+        <div>
+            <label for="id_nombre_barre">Nombre barre</label>
+            <input name="nombre_barre" id="id_nombre_barre" readonly>
+        </div>
+        <!-- Champ pour le stpck mètre -->
+        <div>
+            <label for="id_stock_metre">Stock mètre</label>
+            <input name="nombre_stock_metre" id="id_stock_metre" readonly>
+        </div>
+        <!-- Champ pour le prix mètre -->
+        <div>
+            <label for="id_prix_metre">Prix mètre (cm):</label>
+            <input name="prix_metre" id="id_prix_metre"  readonly>
+        </div>
+
+        <br><br>
+        <!-- Choix de la forme du cadre et on ajoute un élément HTML pour afficher l'image du cadre -->
+        <h2>Formulaire</h2>
+        <div style="display: flex; flex-direction: row; align-items: center;">
+            <div>
+                <label for="id_cadre_choix">Forme :</label>
+                <select name="cadre_choix" id="id_cadre_choix" onchange="event_form()">
+                    <option value="">---------</option>
+                    <option value="Cadre">Cadre</option>
+                    <option value="Octogone">Octogone</option>
+                    <option value="Hexagon">Hexagone</option>
+                    <option value="Losange">Losange</option>
+                    <option value="Epingle">Epingle</option>
+                    <option value="Crochet">Crochet</option>
+                    <option value="Higes">Higes</option>
+                    <option value="Senelle">Senelle</option>
+                    <option value="Fiche Poteau">Fiche Poteau</option>
+                    <option value="S">S</option>
+                </select>
+            </div>
+            <div style="float: right;" id="image_cadre"></div>
+        </div>
+
+
+        <!-- Choix du produit -->
+        <div>
+            <label for="id_produit">Produit:</label>
+            <select id="id_produit" name="{{form.article_choix.name}}" onchange="event_produit()">
+                <option value="">---------</option>
+                <!-- Boucle pour afficher la liste des produits -->
+                {% for produit in form.article_choix.field.queryset %}
+                    <!-- Affichage de chaque produit dans un choix de sélection -->
+                    <option value="{{ produit.id }}" data-prix_quintal="{{ produit.prix_quintal }}" data-stock_barre="{{produit.stock_barre}}" data-stock_metre="{{produit.stock_metre}}"  data-prix_metre="{{produit.prix_metre}}">{{ produit.type_fer }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- Champ pour la longueur du cadre -->
+        <div>
+            <label for="id_longueur">Longueur A (cm):</label>
+            <input type="number" name="longueur" id="id_longueur" step="0.01" value="0" onchange="event_longueur()">
+        </div>
+        <!-- Champ pour la largeur du cadre -->
+        <div>
+            <label for="id_largeur">Largeur B (cm):</label>
+            <input type="number" name="largeur" id="id_largeur" step="0.01" value="0" oninput="calculerResultat()">
+        </div>
+
+        <!-- Champ pour la longueur du crochet -->
+        <div>
+            <label for="id_crochet_opti">Crochet C (cm):</label>
+            <input type="number" name="crochet_opti" id="id_crochet_opti" step="0.01" value="15" onchange="event_crochet()" >
+        </div>
+        <!-- Champ pour le prix du service -->
+        <div>
+            <label for="id_prix_service">Prix service (DA):</label>
+            <input type="number" name="prix_service" id="id_prix_service" step="0.01" value="5" oninput="calculerResultat()">
+        </div>
+
+        <!-- Champ pour prendre la chute ou non -->
+        <div>
+            <label for="id_chute">Prendre la chute (cm)</label>
+            <input type="checkbox" name="chute" id="id_chute"  onchange="event_checkbox()">
+        </div>
+
+        <br><br>
+        <h2>Resultats</h2>
+        <!-- Champ pour la consommation sans chute -->
+        <div>
+            <label for="id_consommation_sans_chute">Consommation sans chute (m):</label>
+            <input name="consommation_sans_chute" id="id_consommation_sans_chute" value="0" >
+        </div>
+        <!-- Champ de formulaire pour la consommation en mètre -->
+        <div>
+            <label for="id_consommation">Consommation (m):</label>
+            <input name="consommation" id="id_consommation" value="0" >
+        </div>
+        <!-- Champ pour la longueur du crochet -->
+        <div>
+            <label for="id_crochet">Crochet (cm) optimisé:</label>
+            <input name="crochet" id="id_crochet"  value="0"  readonly >
+        </div>
+
+        <!-- Champ de formulaire pour la chute en centimètre, il est en lecture seule (readonly) -->
+        <div>
+            <label for="id_chute_valeur">Chute (cm):</label>
+            <input name="chute_valeur" id="id_chute_valeur" value="0" readonly>
+        </div>
+            <!-- Champ de formulaire pour afficher la quantité maximale de cadre possible, il est en lecture seule (readonly) -->
+        <div>
+            <label for="id_max">Max :</label>
+            <input name="max" id="id_max" value="0" readonly>
+        </div>
+        <!-- Champ de formulaire pour afficher le prix total en DA, il est en lecture seule (readonly) -->
+        <div>
+            <label for="id_prix">Prix total (DA):</label>
+            <input name="prix" id="id_prix" value="0" readonly>
+        </div>
+
+        <br><br>
+        <!-- Bouton de soumission du formulaire pour enregistrer les données -->
+        <button type="submit" >Enregistrer</button>
+    </form>
+
+
+{% endblock %}
+
+
+{% block js_block %}
+    <!-- On importe les fichiers JS nécessaires -->
+    <script type="text/javascript" src="{% static 'js/math2.js' %}"></script>
+{% endblock %}
+
+
+
+<script>
+    const produitSelect = document.getElementById('id_produit');
+    const prix_quintalInput = document.getElementById('id_prix_quntal');
+    const stock_barreInput = document.getElementById('id_nombre_barre');
+    const stock_metreInput = document.getElementById('id_stock_metre');
+    const prix_metre = document.getElementById('id_prix_metre');
+
+    // Ecouter les changements dans le menu déroulant
+    produitSelect.addEventListener('change', (event) => {
+        const selectedOption = event.target.options[event.target.selectedIndex];
+        prix_quintalInput.value = selectedOption.dataset.prix_quintal;
+        stock_barreInput.value = selectedOption.dataset.stock_barre;
+        stock_metreInput.value = selectedOption.dataset.stock_metre;
+        prix_metre.value = selectedOption.dataset.prix_metre;
+    });
+</script>
+
+
+</body>
+</html>
+

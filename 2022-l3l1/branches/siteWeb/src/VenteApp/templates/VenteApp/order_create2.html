@@ -1,0 +1,304 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+{% load crispy_forms_tags  %}
+
+
+<link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
+<link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+	<div class='main'>
+		<div class='containera-fluid'>
+			<section id='main-content'>
+				<div class='card'>
+
+
+					<div class='card-title'>
+						Création d'une commande
+					</div>
+					<div class='card-body'>
+
+						<div id='email_exist'> </div>
+
+						<form method='post'>
+						{% csrf_token %}
+
+							{{ form | crispy }}
+
+							{{cadre.management_form}}
+
+
+	<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <form action="" id="pos-form">
+            <fieldset>
+                <legend>Add Products</legend>
+                <div class="row align-items-end">
+                    <div class="col-lg-5 col-md-5 col-sm-12">
+                        <div class="form-group mb-3">
+                            <label for="product-id">Select Product</label>
+                            <select id="product-id" class="form-select form-select-sm">
+                                <option value="" disabled selected></option>
+                                {% for product in products %}
+                                    <option value="{{ product.pk }}">{{ product }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-5 col-md-12">
+                        <div class="form-group mb-3">
+                            <label for="product-qty">Qty</label>
+                            <input type="number" class="form-control form-control-sm text-center" step="any" id="product-qty" value="1">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-2 col-md-12">
+                        <div class="form-group mb-3">
+                            <button class="btn btn-light btn-sm bg-gradient border rounded-0 text-start" type="button" id="add_item"><i class="mdi mdi-plus"></i> Add Item</button>
+                        </div>
+                    </div>
+
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="d-flex w-100" id="POS-field">
+                    <div class="col-8 bg-gradient bg-light border h-100">
+                        <table class="table table-bordered">
+                            <colgroup>
+                                <col width="5%">
+                                <col width="15%">
+                                <col width="40%">
+                                <col width="20%">
+                                <col width="20%">
+                            </colgroup>
+                            <thead>
+                                <tr class="bg-dark bg-gradient bg-opacity-50 text-light">
+                                    <th class="py-1 px-2 text-center  text-light"></th>
+                                    <th class="py-1 px-2 text-center  text-light">QTY</th>
+                                    <th class="py-1 px-2 text-center  text-light">Product</th>
+                                    <th class="py-1 px-2 text-center  text-light">Price</th>
+                                    <th class="py-1 px-2 text-center  text-light">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+	<div class='table-responsive'>
+
+		<table class="table">
+		    {{ cadre.management_form }}
+
+
+		    {% for form in cadre.forms %}
+			{% if forloop.first %}
+			    <thead>
+			    <tr>
+				{% for field in form.visible_fields %}
+				    <th>{{ field.label|capfirst }}</th>
+				{% endfor %}
+			    </tr>
+			    </thead>
+			{% endif %}
+			<tr class="formset_row">
+			    {% for field in form.visible_fields %}
+				<td>
+				    {# Include the hidden fields in the form #}
+				    {% if forloop.first %}
+					{% for hidden in form.hidden_fields %}
+					    {{ hidden }}
+					{% endfor %}
+				    {% endif %}
+				    {{ field.errors.as_ul }}
+				    {{ field }}
+				</td>
+			    {% endfor %}
+			</tr>
+		    {% endfor %}
+		</table>
+        <p><a href="{% url 'ProduitApp:create_cadre' %}">Ajouter cadre</a>
+
+	</div>
+
+
+
+							<p><a href="{% url 'VenteApp:venteApp' %}">Annuler</a>
+								<button type = sumbit class="save btn btn-default">Sauvegarder</button></p>
+						</form>
+
+
+
+
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- / container -->
+	</div>
+
+	<!-- /main -->
+</div>
+
+
+<!-- /content-wrap -->
+
+{% block javascript %}
+
+<script src="{% static 'formset/jquery.formset.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.10/js/select2.min.js"></script>
+
+
+<script type="text/javascript">
+
+    $('.formset_row').formset({
+	addText: '<button class="btn btn-outline-dark" type="button">Ajouter article </button>',
+        deleteText: 'remove',
+        prefix: 'items'
+
+    });
+
+
+</script>
+
+{% endblock javascript %}
+<noscript id="item-clone">
+    <tr>
+        <td class="px-2 py-1 text-center">
+            <button class="btn btn-sm btn-outline-danger rounded-0 rem-item" type="button"><i class="mdi mdi-close"></i></button>
+        </td>
+        <td class="px-2 py-1">
+            <input type="hidden" name="product_id[]">
+            <input type="hidden" name="price[]">
+            <input type="number" name="qty[]" min="0" class="form-control form-control-sm rounded-0 text-center">
+        </td>
+        <td class="px-2 py-1 product_name text-start"></td>
+        <td class="px-2 py-1 product_price text-end"></td>
+        <td class="px-2 py-1 product_total text-end"></td>
+    </tr>
+</noscript> {% endblock pageContent %} {% block ScriptBlock %}
+<script>
+    var product_json = '{{ product_json }}'
+    if (product_json == "" || product_json == "{}") {
+        product_json = {}
+    } else {
+        product_json = product_json.replaceAll('&quot;', '"')
+        product_json = $.parseJSON(product_json)
+    }
+    var prod_arr = {}
+    if (Object.keys(product_json).length > 0) {
+        Object.keys(product_json).map(k => {
+            prod_arr[product_json[k].id] = product_json[k]
+        })
+    }
+
+    $(function() {
+        $('#product-id').select2({
+            placeholder: "Please Select Product here",
+            width: '100%'
+        })
+        $('#add_item').click(function() {
+            var id = $('#product-id').val()
+            var qty = $('#product-qty').val()
+            console.log(id, qty)
+            if (id == '' || qty == '' || id == null || qty == null) {
+                alert("Product and Quantity Field is required!")
+                return false
+            }
+            if (!!prod_arr[id]) {
+                if ($('#POS-field table tbody input[name="product_id[]"][value="' + id + '"]').length > 0) {
+                    alert('Item Already in the List.')
+                    return false;
+                }
+                data = prod_arr[id]
+                var tr = $($('noscript#item-clone').html()).clone()
+                tr.find('[name="qty[]"]').val(qty)
+                tr.find('[name="product_id[]"]').val(id)
+                tr.find('[name="price[]"]').val(data.price)
+                tr.find('.product_name').text(data.name)
+                tr.find('.product_price').text(parseFloat(data.price).toLocaleString('en-US'))
+                tr.find('.product_total').text(parseFloat(data.price * qty).toLocaleString('en-US'))
+                $('#POS-field table tbody').append(tr)
+                $('#product-id').val('').trigger('change')
+                $('#product-qty').val(1)
+                calc()
+                tr.find('[name="qty[]"]').on('input keypress keyup keydown', function() {
+                    calc()
+                })
+                tr.find('.rem-item').click(function() {
+                    if (confirm("Are you sure to remove " + data.name + " product form list?") == true) {
+                        tr.remove()
+                        calc()
+                    }
+                })
+            } else {
+                alert("Undefined Product");
+            }
+        })
+        $('[name="tax"]').on('input keypress keydown keyup', function() {
+            calc()
+        })
+
+        $('#pos-form').submit(function(e) {
+            e.preventDefault();
+            var _this = $(this)
+            $('.err-msg').remove();
+            var el = $('<div>')
+            el.addClass("alert alert-danger err-msg")
+            el.hide()
+            if (_this[0].checkValidity() == false) {
+                _this[0].reportValidity();
+                return false;
+            }
+            start_loader();
+            $.ajax({
+                headers: {
+                    "X-CSRFToken": '{{csrf_token}}'
+                },
+                url: "{% url 'VenteApp:save-pos' %}",
+                data: new FormData($(this)[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                type: 'POST',
+                dataType: 'json',
+                error: err => {
+                    console.log(err)
+                    end_loader();
+                },
+                success: function(resp) {
+                    if (typeof resp == 'object' && resp.status == 'success') {
+                        el.removeClass("alert alert-danger err-msg")
+                            // location.reload()
+                        uni_modal("Receipt", "{% url 'VenteApp:receipt-modal' %}?id=" + resp.sale_id)
+                        $('#uni_modal').on('hide.bs.modal', function() {
+                            location.reload()
+                        })
+                    } else if (resp.status == 'failed' && !!resp.msg) {
+                        el.text(resp.msg)
+                    } else {
+                        el.text("An error occured", 'error');
+                        end_loader();
+                        console.err(resp)
+                    }
+                    _this.prepend(el)
+                    el.show('slow')
+                    $("html, body, .modal").scrollTop(0);
+                    end_loader()
+                }
+            })
+        })
+    })
+</script>
+{% endblock ScriptBlock %}

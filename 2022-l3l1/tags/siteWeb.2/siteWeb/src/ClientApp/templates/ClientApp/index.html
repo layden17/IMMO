@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion Client</title>
+</head>
+<body>
+<h2>Gestion Client</h2>
+<form enctype="multipart/form-data" method ='POST'>
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type = sumbit class="save btn btn-default">Sauvegarder</button>
+</form>
+
+<br>
+<table border="1" style="border-collapse:collapse;">
+    <thead>
+    <th>Prenom</th>
+    <th>Nom</th>
+    <th>type</th>
+    <th>adresse</th>
+    <th>tel</th>
+    <th>piece d'identité</th>
+    </thead>
+    <tbody>
+    {% for client in dataClient %}
+    <tr>
+        <td>{{client.prenom }}</td>
+        <td>{{client.nom }}</td>
+        <td>{{client.type }}</td>
+        <td>{{client.adresse }}</td>
+        <td>{{client.tel }}</td>
+        <td>{{client.piece_ID }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>

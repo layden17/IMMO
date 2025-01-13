@@ -1,0 +1,12 @@
+{% extends 'ProduitApp/produit_base.html' %}<!-- on étend le template 'produit_base.html' -->
+
+{% block content %}
+<h1>Modifier  les autres produits</h1> <!-- on affiche un titre pour le formulaire de modification -->
+<form method="post">  <!-- on utilise la méthode POST pour envoyer le formulaire -->
+    {% csrf_token %}<!-- on inclut le token CSRF pour protéger le formulaire contre les attaques CSRF -->
+    {{ form.as_p }}<!-- on affiche le formulaire sous forme de paragraphes -->
+    <input type="submit" value="Modifier"> <!-- on affiche un bouton pour soumettre le formulaire -->
+</form>
+
+
+{% endblock %}

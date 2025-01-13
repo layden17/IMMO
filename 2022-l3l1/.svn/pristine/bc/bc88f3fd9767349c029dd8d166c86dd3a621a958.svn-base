@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail des Factures</title>
+</head>
+<body>
+    <h1>Factures pour {{ fournisseur.Raison_social }}</h1>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Numéro</th>
+        <th>Date de création</th>
+        <th>Montant</th>
+        <th>Versement</th>
+        <th>Dette</th>
+        <th>Telecharger</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {% for facture in factures %}
+        <tr>
+          <td>{{ facture.pk }}</td>
+          <td>{{ facture.date_creation|date:"d/m/Y H:i" }}</td>
+          <td>{{ facture.montant }}</td>
+          <td>{{ facture.Versement }}</td>
+          <td>{{ facture.Dette}}</td>
+          
+            {% if facture.fichier %}
+            <td> <a href="{{ facture.fichier.url }}" class="btn btn-primary">Télécharger</a>
+          </td>
+            
+            {% else %}
+            <td> Pas de Facture</td>
+            {% endif %}
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">Aucune facture pour ce fournisseur.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+ 
+  <a href="{% url 'FournisseursApp:fournisseurs' %}" class="btn btn-secondary">Retour à la liste des fournisseurs</a>
+</body>
+</html>

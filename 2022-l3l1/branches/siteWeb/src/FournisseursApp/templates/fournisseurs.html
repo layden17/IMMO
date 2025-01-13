@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fournisseurs</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <form method="get" action="{% url 'FournisseursApp:search_fournisseurs' %}">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Rechercher par raison sociale ou numéro de téléphone" name="search_query">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Rechercher</button>
+            </div>
+        </div>
+    </form>
+    
+      
+  
+    <button type = sumbit class="save btn btn-default"><a href="{% url 'FournisseursApp:ajout_fournisseurs' %}">Ajouter un Fournisseur</a></button>
+    <div class="main">
+      <div class="container">
+      <table  class="table mx-auto", border="2">
+        <thead>
+          <tr>
+            <th>
+              <a href="{% url 'FournisseursApp:tri_fournisseurs' 'id' %}">ID</a>
+          </th>
+            <th scope="col"><a href="{% url 'FournisseursApp:tri_fournisseurs' 'Raison_social' %}">Raison social</a></th>
+            <th scope="col"><a href="{% url 'FournisseursApp:tri_fournisseurs' 'email' %}">Email</a></th>
+            <th scope="col"><a href="{% url 'FournisseursApp:tri_fournisseurs' 'Numero_Telephone' %}">Numero Telphone</a></th>
+            <th scope="col"><a href="{% url 'FournisseursApp:tri_fournisseurs' 'Fax' %}">Fax</a></th>
+            <th scope="col"><a href="{% url 'FournisseursApp:tri_fournisseurs' 'Versement' %}">Versement</a></th>
+            <th scope="col"><a href="{% url 'FournisseursApp:tri_fournisseurs' 'Dette' %}">Dette</a></th>
+            <th scope="col">Facture Transaction</th>            
+            <th scope="col">Supprimer</th>
+            <th scope="col">Modifier</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          {% if fournisseurs %}
+          {% for produit in fournisseurs%}
+          
+                <tr>
+                    <td>{{ produit.id }}</td>
+                    <td>{{ produit.Raison_social }}</td>
+                    <td>{{produit.email}}</td>
+                    <td>{{ produit.Numero_Telephone}}</td>
+                    <td>{{ produit.Fax}}</td>
+                    <td>{{ produit.Versement }}</td>
+                    <td>{{ produit.Dette }}</td>
+               <td>  <a href="{% url 'FournisseursApp:factures_detail' produit.id %}" class="btn">Détail</a> </td>
+                  <br>
+                  <br>
+                    <td><a href="{% url 'FournisseursApp:supprimer_fournisseur' produit.id %}">Supprimer</a></td>
+                    <td><a href="{% url 'FournisseursApp:modifier_fournisseur' produit.id %}">Modifier</a></td>
+                </td>
+                    
+            </tr>
+          {% endfor %}
+        {% else %}
+          <tr>
+            <td colspan="8">Aucun fournisseur n'a été trouvé.</td>
+            
+          </tr>
+        {% endif %}
+
+        
+          
+          
+        </tbody>
+      </table>
+    
+    </div>
+    </div>
+
+    
+   
+</body>
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="06ca2a08-668d-490f-bda4-f48e95c4db90" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2NQ1Y1kQMde5dCgO6hFSeK41qMC" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Julien/OneDrive/Documents/Etudiant/Licence/L3/S6/Projet/L3L/branches/siteWeb/src/static/images",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Julien\OneDrive\Documents\Etudiant\Licence\L3\S6\Projet\L3L\branches\siteWeb\src\static\images" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="06ca2a08-668d-490f-bda4-f48e95c4db90" name="Changes" comment="" />
+      <created>1679581537368</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679581537368</updated>
+      <workItem from="1679581538132" duration="1924000" />
+      <workItem from="1679754943318" duration="399000" />
+      <workItem from="1679755367864" duration="6241000" />
+      <workItem from="1679761814367" duration="17643000" />
+      <workItem from="1679782583559" duration="1171000" />
+      <workItem from="1679817463187" duration="23188000" />
+      <workItem from="1679863400455" duration="3319000" />
+      <workItem from="1679938890795" duration="1224000" />
+      <workItem from="1679940171693" duration="12193000" />
+      <workItem from="1679953006622" duration="79000" />
+      <workItem from="1680008692661" duration="752000" />
+      <workItem from="1680009465585" duration="17098000" />
+      <workItem from="1680032781203" duration="670000" />
+      <workItem from="1680033481762" duration="2087000" />
+      <workItem from="1680035631523" duration="954000" />
+      <workItem from="1680036612921" duration="4134000" />
+      <workItem from="1680040836547" duration="4599000" />
+      <workItem from="1680087116159" duration="31494000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

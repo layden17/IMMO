@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout Achat</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <style>
+        .form-group {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    {% load static %}
+    <form enctype="multipart/form-data" method='POST'>
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{form.fournisseur.errors}}
+            <label for="id_fournisseur">Fournisseur:</label>
+            {{ form.fournisseur }}
+            <a href="{% url 'FournisseursApp:ajout_fournisseurs' %}" class="btn btn-secondary" target="_blank">Ajouter un fournisseur</a>
+        </div>
+        <div class="form-group">
+            {{form.produits.errors}}
+            <label for="id_produit">Produit:</label>
+            <select id="id_produit" name="{{form.produits.name}}">
+                <option value="">---------</option>
+                {% for produit in form.produits.field.queryset %}
+                <option value="{{ produit.id }}" data-categorie="{{ produit.categorie }}" data-prix="{{produit.prix}}">{{ produit.designation }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            {{form.date_achat.errors}}
+            <label for="id_date_achat">Date d'achat:</label>
+            {{ form.date_achat }}
+        </div>
+        <div class="form-group">
+            {{form.prix_total.errors}}
+            <label for="id_Prix_total">Prix total:</label>
+            {{form.prix_total }}
+        </div>
+        <div class="form-group">
+            {{form.categorie.errors}}
+            <label for="id_categorie">Categorie:</label>
+            {{form.categorie}}
+        </div>
+        <div class="form-group">
+            {{form.Versement.errors}}
+            <label for="id_Versement">Versement:</label>
+            {{form.Versement }}
+        </div>
+        <div class="form-group">
+            {{form.Dette.errors}}
+            <label for="id_Dette">Dette:</label>
+            {{form.Dette}}
+        </div>
+        <div class="form-group">
+            {{form.type_facture.errors}}
+            <label for="id_Facture">Type Facture:</label>
+            {{ form.type_facture }}
+        </div>
+        <div class="form-group">
+            {{form.fichier.errors}}
+            <label for="id_Fichier">Fichier:</label>
+            {{ form.fichier}}
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" onclick="addProduct()">Ajouter un produit</button>
+
+
+        </div>
+        <table class="table" id="product-table">
+            <thead>
+                <tr>
+                    <th scope="col">Produit</th>
+                    <th scope="col">Quantité</th>
+                    <th scope="col">Prix unitaire</th>
+                    <th scope="col">Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+  <h1>Produits</h1>
+  <button id="add-produit-btn" class="btn btn-primary">Ajouter un produit</button>
+  <table id="produits-table" class="table table-bordered table-striped" style="display: none;">
+    <thead>
+      <tr>
+        <th>Désignation</th>
+        <th>Description</th>
+        <th>TVA</th>
+        <th>Prix</th>
+        <th>Catégorie</th>
+        <th>Quantité</th>
+        <th>Stock Alerte</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+{% block scripts %}
+  <script>
+    const addButton = document.querySelector('#add-produit-btn');
+
+addButton.addEventListener('click', (event) => {
+  event.preventDefault();
+  // Code pour ajouter le produit ici
+});
+
+    $(document).ready(function() {
+      // Gestion du bouton "Ajouter un produit"
+      $('#add-produit-btn').click(function() {
+        $('#produits-table').show();
+        addProduitRow();
+      });
+
+      // Ajouter une nouvelle ligne pour un nouveau produit
+      function addProduitRow() {
+        var row = $('<tr>');
+        var designation = $('<td><input type="text" name="designation"></td>');
+        var description = $('<td><input type="text" name="description"></td>');
+        var tva = $('<td><input type="number" name="tva"></td>');
+        var prix = $('<td><input type="number" name="prix"></td>');
+        var categorie = $('<td><input type="text" name="categorie"></td>');
+        var quantite = $('<td><input type="number" name="quantite"></td>');
+        var stock_alerte = $('<td><input type="number" name="stock_alerte"></td>');
+        row.append(designation, description, tva, prix, categorie, quantite, stock_alerte);
+        $('#produits-table tbody').append(row);
+      }
+    });
+  </script>
+{% endblock %}
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+        <div class="form-group">
+            <button type="submit" name="submit_action" value="save" class="btn btn-default">Sauvegarder </button>
+            <a href="{% url 'AchatApp:achat'%}" class="btn btn-secondary"> Annuler</a>
+        </div>
+    </form>
+    <script>
+
+            const produitSelect = document.getElementById('id_produit');
+            const categorieInput = document.getElementById('id_categorie');
+            const prixInput=document.getElementById('id_prix')
+
+// Listen to changes in the select element
+        produitSelect.addEventListener('change', (event) => {
+    // Get the selected option
+        const selectedOption = event.target.options[event.target.selectedIndex];
+    // Update the value of the categorie input field
+        categorieInput.value = selectedOption.dataset.categorie;
+        prixInput.value=selectedOption.dataset.prix;
+
+
+});
+
+let count = 0;
+
+    function addProduct() {
+        const table = document.getElementById("product-table");
+        const row = table.insertRow(-1);
+
+        const col1 = row.insertCell(0);
+        const col2 = row.insertCell(1);
+        const col3 = row.insertCell(2);
+        const col4 = row.insertCell(3);
+        const col5 = row.insertCell(4);
+
+        col1.innerHTML = '<input type="text" name="designation-' + count + '">';
+        col2.innerHTML = '<input type="number" name="prix-' + count + '">';
+        col3.innerHTML = '<input type="number" name="quantite-' + count + '">';
+        col4.innerHTML = '<input type="number" name="remise-' + count + '">';
+        col5.innerHTML = '<button type="button" class="btn btn-danger" onclick="removeRow(this)">Supprimer</button>';
+
+        count++;
+    }
+
+    function removeRow(button) {
+        const row = button.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+        </script>
+    
+</body>
+</html>
+

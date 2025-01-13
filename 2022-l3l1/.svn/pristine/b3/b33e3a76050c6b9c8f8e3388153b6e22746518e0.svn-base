@@ -1,0 +1,65 @@
+
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+
+{% load humanize %}
+<style>
+
+	.annuler {
+     text-align: center;`
+  }
+	.annuler a{
+     display: center;
+  }
+</style>
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+
+<h1>Commandes de {{ client.prenom }} {{ client.nom }}</h1>
+
+</div>
+
+{% if dataCommande %}
+   <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+       <div class="mdc-card py-2">
+<table class='table table-hover' style="border-collapse:collapse;">
+    <thead>
+    <th> N° </th>
+    <th> Date de création</th>
+     <th>Total</th>
+    <th> Date de réception</th>
+    <th> Commande livrée</th>
+    </thead>
+    <tbody>
+    {% for command in dataCommande %}
+    <tr>
+        <td>{{command.id}}</td>
+         <td>{{command.date_creation }}</td>
+        <td> {{ command.total_order}}</td>
+        <td>{{command.date_reception }}</td>
+        <td>{{command.statut}}</td>
+        <td><a class ="btn btn-sm btn-dark" href="{% url 'VenteApp:update_order' command.id %}">modifier</a></td>
+        <td><a class ="btn btn-sm btn-danger" href="{% url 'VenteApp:delete_order' command.id %}">supprimer</a></td>
+        <td><a class ="btn btn-sm btn-light" href="{% url 'VenteApp:order_details' command.id %}">détails</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+            </div>
+ </div>
+
+
+
+{% else %}
+    <p>Aucune commande trouvée pour ce client.</p>
+{% endif %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+
+    <div class="annuler">
+        <a class="btn btn-outline-dark" href="{% url 'VenteApp:venteApp' %}">Annuler</a>
+    </div>
+
+</div>
+
+{% endblock pageContent %}

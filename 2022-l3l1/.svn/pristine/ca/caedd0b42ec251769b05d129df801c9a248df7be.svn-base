@@ -1,0 +1,77 @@
+from django.db import models
+
+# Create your models here.
+
+from django.db import models
+
+
+"""
+classe mère de tous les produits 
+"""
+class Produit(models.Model):
+    designation = models.CharField(max_length=100)
+    description = models.TextField()
+    TVA= models.FloatField(default=0)
+    categorie= models.ForeignKey("Categorie",on_delete=models.CASCADE) 
+   # providers = models.ManyToManyField(providers)  listes des fournissuers pas en^core defini
+
+    stock_alerte=models.DecimalField(max_digits=10, decimal_places=2,default=0)# definir en quintal
+    #barre ou metre ?
+
+   
+    class Meta:
+        verbose_name = "Produit"
+        verbose_name_plural = "Produits"
+
+    def __str__(self):
+        return self.designation
+    
+
+"""
+classe qui représente les produits bruts: fer avec différents diamètres possibles
+"""
+class ProduitBrut(Produit):
+    stock_barre=models.IntegerField()
+    stock_metre= models.DecimalField(max_digits=10, decimal_places=2)
+    stock_quintal=models.DecimalField(max_digits=10, decimal_places=2)
+
+    prix_barre = models.DecimalField(max_digits=10, decimal_places=2)
+    prix_quintal = models.DecimalField(max_digits=10, decimal_places=2)
+    prix_metre = models.DecimalField(max_digits=10, decimal_places=2)
+
+    prix_achat_quintal = models.DecimalField(max_digits=10, decimal_places=2)
+    prix_achat_barre = models.DecimalField(max_digits=10, decimal_places=2)
+    prix_achat_metre = models.DecimalField(max_digits=10, decimal_places=2)
+
+    
+    class Meta:
+        verbose_name = "Produit brut"
+        verbose_name_plural = "Produits bruts"
+
+
+"""
+classe pour les cadre qui peuvent etre de plusieurs formes différentes  : carré, cercle...
+"""
+class Cadre(Produit):
+    forme = models.CharField(max_length=100)
+    longueur_fer=models.DecimalField(max_digits=10, decimal_places=2) # nombre total de mètre nécessaire pour la confection du cadre
+    longueur_crochet=models.DecimalField(max_digits=10, decimal_places=2)
+    prix_vente=models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        verbose_name = "Cadre" 
+        verbose_name_plural = "Cadres"    
+
+
+"""
+classe catégorie pour les produits
+"""
+class Categorie(models.Model):
+    name=models.CharField(max_length=100,primary_key=True)
+
+    class Meta:
+        verbose_name="Categorie"
+        verbose_name_plural="Categories"
+
+    def __str__(self):
+        return self.name

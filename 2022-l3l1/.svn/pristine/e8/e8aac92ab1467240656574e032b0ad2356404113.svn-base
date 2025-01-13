@@ -1,0 +1,129 @@
+
+#canvas {
+    width: 100px;
+    height: 100px;
+}
+
+
+
+.carre {
+    width  : 50px;
+    height : 50px;
+    background : green;
+}
+.rectangle {
+    width  : 100px;
+    height : 50px;
+    background : green;
+}
+.losange-90 {
+    width  : 0;
+    height : 0;
+    position : relative;
+    top : -25px;
+    border : 25px solid transparent;
+    border-bottom-color : green;
+}
+.losange-90:after {
+    width  : 0;
+    height : 0;
+    content : '';
+    position : absolute;
+    left : -25px;
+    top  : 25px;
+    border : 25px solid transparent;
+    border-top-color : green;
+}
+.hexagone {
+    box-sizing : border-box;
+    position : relative;
+    width : 121.24356px;
+    height : 70px;
+    background-color : #008000;
+    margin : 35px 0;
+}
+.hexagone:before,
+.hexagone:after {
+    content : "";
+    box-sizing : border-box;
+    position : absolute;
+    width : 0;
+    border-left : 60.62178px solid transparent;
+    border-right : 60.62178px solid transparent;
+}
+.hexagone:after {
+    top : 100%;
+    width : 0;
+    border-top : 35px solid #008000;
+}
+.hexagone:before {
+    bottom : 100%;
+    border-bottom : 35px solid #008000;
+}
+.clickable-header {
+    width: 100%;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Style pour la table */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: left;
+    vertical-align: middle;
+  }
+  
+  th {
+    background-color: #ccc;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Style pour les boutons */
+  .btn {
+    border: none;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .btn-default {
+    background-color: #e0e0e0;
+    color: #333;
+  }
+  
+  .btn-default:hover {
+    background-color: #ccc;
+  }
+  
+  .btn-primary {
+    background-color: #333;
+    color: #fff;
+  }
+  
+  .btn-primary:hover {
+    background-color: #666;
+  }
+  .main table {
+    margin: 10 auto;
+  }

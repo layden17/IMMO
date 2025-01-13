@@ -1,0 +1,12 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+<form enctype="multipart/form-data" method ='POST'>
+    {% csrf_token %}
+    {{form.as_p}}
+    attention : la date est au format: annee-mois-jour
+    <br>
+    <br>
+    <a href="{% url 'VenteApp:venteApp' %}">Annuler</a>
+    <button type = sumbit class="save btn btn-default">Sauvegarder</button>
+</form>
+{% endblock pageContent %}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Achat</title>
+</head>
+<body>
+  <h1>Liste des achats</h1>
+  <table  border="2">
+    <thead>
+      <tr>
+        <th>Fournisseur</th>
+        <th>produits</th>
+        <th>date achat</th>
+        <th>Categorie</th>
+        <th>Quantite_en_Quintal</th>
+        <th>Quantite_en_Bar</th>
+        <th>Quantite_en_Metre</th>
+        <th>tva_pourcentage</th>
+        <th>tva</th>
+        <th>prix</th>
+        <th>prix_total</th>
+        <th>type_facture</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for achat in achats %}
+        <tr>
+          <td>{{ achat.fournisseur.Raison_social }}</td>
+          <td>{{ achat.produits.designation }}</td>
+          <td>{{ achat.date_achat|date:"d/m/Y H:i" }}</td>
+          <td>{{ achat.Categorie }}</td>
+          <td>{{ achat.Quantite_en_Quintal}}</td>
+          <td>{{ achat.Quantite_en_Bar}}</td>
+          <td>{{ achat.Quantite_en_Metre }}</td>
+          <td>{{ achat.tva_pourcentage }}</td>
+          <td>{{ achat.tva|floatformat:2 }} €</td>
+          <td>{{ achat.prix|floatformat:2 }} €</td>
+          <td>{{ achat.prix_total|floatformat:2 }} €</td>
+          <td>{{ achat.type_facture }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">Aucun achat trouvé.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+</body>
+</html>
+  

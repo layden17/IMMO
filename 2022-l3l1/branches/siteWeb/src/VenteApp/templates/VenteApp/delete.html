@@ -1,0 +1,19 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<div class="mdc-card py-2">
+    <div class="col-md-6">
+        <div class ="card card-body">
+            <p>Étes-vous sûr de vouloir supprimer la commande n°{{item}} ?</p>
+            <form action="{% url 'VenteApp:delete_order' item.id %}" method="POST">
+                {% csrf_token %}
+                <a class="btn btn-warning" href="{% url 'VenteApp:venteApp' %}">Annuler</a>
+                <input class="btn btn-danger" type="submit" value="Confirmer" name="Confirmer">
+            </form>
+        </div>
+
+    </div>
+</div>
+</div>
+{% endblock pageContent %}

@@ -1,0 +1,47 @@
+{% extends 'ProduitApp/histo_quintal.html' %}
+
+{% block content %}
+    <title>historique des prix de ventes en quintal</title>
+</head>
+<body>
+
+    <form method="post"  action="{% url 'ProduitApp:historique_prix_vente_quintal' %}" >
+        {% csrf_token %}
+        <label for="type_fer">Type de fer :</label>
+        <select id="type_fer"  name="type_fer" >
+            <option value="">Tous</option>
+            <option value="Fer /6">Fer /6</option> 
+            <option value="Fer /8">Fer /8</option> 
+            <option value="Fer /10">Fer /10</option> 
+            <option value="Fer /12">Fer /12</option>
+            <option value="Fer /14">Fer /14</option> 
+            <option value="Fer /16">Fer /16</option>
+        </select>
+  
+        <button type="submit">Rechercher</button>
+    </form>
+
+    <table border="2" style="border-collapse:collapse;">
+        <thead>
+          <tr>
+            <th>Type de fer</th>
+            <th>Date</th>
+            <th>Prix Quintal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for histo in historique_prix_vente_quintal %}
+          <tr>
+           <td>{{ histo.produit }}</td>
+            <td>{{ histo.date }}</td>
+            <td>{{ histo.prix }}</td>
+          </tr>
+          {% empty %}
+        <tr>
+          <td colspan="6">Aucun Historique trouvé.</td>
+        </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+{% endblock %}

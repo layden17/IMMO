@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <meta charset="UTF-8">
+    <title>Create cadre</title>
+</head>
+<body>
+
+
+{% block content %}
+    <h1>Créer un cadre</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div>
+            <label for="id_cadre_choix">Forme :</label>
+            <select name="cadre_choix" id="id_cadre_choix" onchange="calculerResultat()">
+                <option value="Cadre">Cadre</option>
+                <option value="Octogone">Octogone</option>
+                <option value="Hexagon">Hexagone</option>
+                <option value="Losange">Losange</option>
+                <option value="Epingle">Epingle</option>
+                <option value="Crochet">Crochet</option>
+                <option value="Higes">Higes</option>
+                <option value="Senelle">Senelle</option>
+                <option value="Fiche Poteau">Fiche Poteau</option>
+                <option value="S">S</option>
+            </select>
+            <div id="hexagon" style="display:none;"></div>
+        </div>
+        <div>
+            <label for="id_article_choix">Article :</label>
+            <select name="article_choix" id="id_article_choix" onchange="calculerResultat()">
+                <option value="Fer /6">Fer /6</option>
+                <option value="Fer /8">Fer /8</option>
+                <option value="Fer /10">Fer /10</option>
+                <option value="Fer /12">Fer /12</option>
+                <option value="Fer /14">Fer /14</option>
+            </select>
+        </div>
+        <div>
+            <label for="id_longueur">Longueur (cm):</label>
+            <input type="number" name="longueur" id="id_longueur" step="0.01" value="0" oninput="calculerResultat()">
+        </div>
+        <div>
+            <label for="id_largeur">Largeur (cm):</label>
+            <input type="number" name="largeur" id="id_largeur" step="0.01" value="0" oninput="calculerResultat()">
+        </div>
+        <div>
+            <label for="id_crochet">Crochet (cm):</label>
+            <input type="number" name="crochet" id="id_crochet" step="0.01" value="10" oninput="calculerResultat()">
+        </div>
+        <div>
+            <label for="id_prix_service">Prix service (DA):</label>
+            <input type="number" name="prix_service" id="id_prix_service" step="0.01" value="5" oninput="calculerResultat()">
+        </div>
+        <div>
+            <label for="id_chute">prendre la chute (cm)</label>
+            <input type="checkbox" name="chute" id="id_chute"  onchange="calculerResultat()">
+        </div>
+        <br><br>
+        <div>
+            <label for="id_consommation_sans_chute">consommation sans chute (m):</label>
+            <input name="consommation_sans_chute" id="id_consommation_sans_chute" value="0" >
+        </div>
+        <div>
+            <label for="id_consommation">consommation (m):</label>
+            <input name="consommation" id="id_consommation" value="0" >
+        </div>
+        <div>
+            <label for="id_chute_valeur">chute (cm):</label>
+            <input name="chute_valeur" id="id_chute_valeur" value="0" readonly>
+        </div>
+        <div>
+            <label for="id_max">max :</label>
+            <input name="max" id="id_max" value="0" readonly>
+        </div>
+
+        <div>
+            <label for="id_prix">Prix total (DA):</label>
+            <input name="prix" id="id_prix" value="0" readonly>
+        </div>
+
+        <br><br>
+        <div>
+            <label for="id_quantity">Quantité:</label>
+            <input name="quantity" id="id_quantity" step="0.01" value="0">
+        </div>
+        <div>
+            <label for="id_is_deleted">Is deleted</label>
+            <input type="checkbox" name="is_deleted" id="is_deleted" >
+        </div>
+        <button type="submit">Enregistrer</button>
+    </form>
+{% endblock %}
+
+<canvas id="canvas" width="400" height="400"></canvas>
+
+{% block js_block %}
+    <script type="text/javascript" src="{% static 'js/cadre.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/math2.js' %}"></script>
+{% endblock %}
+
+
+
+<!--
+<ol>
+    <img src="{% static 'images/carre.png' %}" alt="image1">
+    <img src="{% static 'images/croche.png' %}" alt="image1">
+    <img src="{% static 'images/epingle.png' %}" alt="image1">
+    <img src="{% static 'images/hexagone.png' %}" alt="image1">
+</ol>
+
+<div class="carre"></div>
+
+<br>
+<div class="rectangle"></div>
+<br>
+<div class="losange-90"></div>
+<br>
+<div class="hexagone"></div>
+-->
+</body>
+</html>
+

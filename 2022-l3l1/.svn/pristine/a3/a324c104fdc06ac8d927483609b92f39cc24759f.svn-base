@@ -1,0 +1,21 @@
+{% extends 'ProduitApp/produit_base.html' %} <!-- On étend la base de la page produit_base.html -->
+
+{%load static %} <!-- On charge les fichiers statiques tels que les fichiers CSS, les images, etc. -->
+
+{% block content %} <!-- On crée un bloc de contenu -->
+    <h1>Modifier produit brut</h1> <!-- On affiche le titre de la page -->
+
+    <form method="post"> <!-- On crée un formulaire pour soumettre les données -->
+        {% csrf_token %} <!-- On inclut un token CSRF pour sécuriser le formulaire -->
+        {{ form.as_p }} <!-- On affiche le formulaire de modification du produit brut -->
+        <input type="submit" value="Modifier"> <!-- On crée un bouton pour soumettre les données -->
+    </form>
+
+    <button><a href="{% url 'ProduitApp:historique_prix_achat_quintal' pk=object.pk %}">Historique</a></button> <!-- On crée un bouton pour afficher l'historique des prix d'achat en quintal -->
+
+
+    {% block js_block %} <!-- On crée un bloc pour insérer du code JavaScript -->
+        <script type="text/javascript" src="{% static 'js/calculs_produit_brut.js' %}"></script> <!-- On inclut le fichier JavaScript pour réaliser des calculs -->
+    {% endblock %} <!-- On termine le bloc pour insérer du code JavaScript -->
+
+{% endblock %} <!-- On termine le bloc de contenu -->

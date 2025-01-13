@@ -1,0 +1,224 @@
+{% load static %}
+<!-- Permet d'ajouter un achat-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="/static/css/achat.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% url 'js-catlog' %}"></script>
+    <script src="{% static '/admin/js/core.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'admin/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}">
+    <title>Ajouter Produit</title>
+</head>
+<body>
+<!-- Formulaire pour achat-->
+    <form enctype="multipart/form-data" method='post' id="my-form">
+        {% csrf_token %}
+        {{ form.media }}
+        <div class="form-group">
+            {{form.fournisseur.errors}}
+            <label for="id_fournisseur">Fournisseur:</label>
+            {{ form.fournisseur }}
+            <a href="{% url 'FournisseursApp:ajout_fournisseurs' %}" class="btn" target="_blank">Ajouter un fournisseur</a>
+        </div>
+        <br>
+        
+        <div class="form-group">
+          <label for="id_date_achat">Date d'achat:</label>
+          <input type="text" name="date_achat" value="2022-03-30" class="vDateField" id="id_date_achat">
+      </div>
+       <div class="form-group">
+            {{form.prix_total.errors}}
+            <label for="id_Prix_total">Prix total:</label>
+            {{form.prix_total }}
+        </div>
+        <br>
+        <!--Affichage des produits sous forme de checkbox dans une fenetre modulante avec leur barre de recherche associé -->
+
+        <div id="produits-list">
+          <div id="modal-ajouter-produits" class="modal">
+            <div class="modal-content">
+              <span class="close">&times;</span>
+            
+        <div><label>Produits Divers</label>
+          <a href="{% url 'ProduitApp:add_autre_produit' %}" class="btn" target="_blank">Ajouter un Autre Produit</a>
+          <br>
+          <input type="text" id="searchBar2" placeholder="Autre Produit">
+        </div>
+        <div id="autre_produits_container">
+          
+          {% for autre_produit in autre_produits %}
+          <div class="autre_produit">
+            
+            <input type="checkbox" name="autre_produits" value="{{ autre_produit.pk }}" id="id_autre_produits_{{ autre_produit.pk }}">
+            <label for="id_autre_produits_{{ autre_produit.pk }}" data-price="0" data-quantite="0">
+              {{ autre_produit.designation }}
+            </label>
+          </div>
+        {% endfor %}
+        </div>
+
+        
+      
+      <div class="form-group"> 
+      </div>
+
+       
+        
+        
+        
+        
+        
+        
+        <br>
+        <div><label>Produits Brut</label>
+          <br>
+          <input type="text" id="searchBar1" placeholder="Produit Brut">
+        </div>       
+        <div id="produits_brut_container">
+          
+          {% for produits_brut in produits_bruts %}
+          <div class="produit_brut">
+            
+            <input type="checkbox" name="produits_bruts" value="{{ produits_brut.pk }}" id="id_produits_brut_{{ produits_brut.pk }}">
+            <label for="id_autre_produits_{{ produits_brut.pk }}" data-quantite="0" data-quintal="0" data-barre="0" data-type-fer="{{produits_brut.type_fer}}" data-price-quintal="0">
+              {{ produits_brut.designation }}-{{produits_brut.type_fer }}
+            </label>
+          </div>
+
+        {% endfor %}
+         
+        
+      </div>  
+    </div>
+      </div>
+      </div>
+        
+        <!-- Bouton pour offrir la fenetre modulante -->
+        <button type="button" id="ajouter-produits">Ajouter des produits</button>
+
+
+<script>
+  //Script pour la fenetre modulante
+  var modal = document.getElementById("modal-ajouter-produits");
+    var btn = document.getElementById("ajouter-produits");
+          var span = document.getElementsByClassName("close")[0];
+          var searchForm=document.getElementById("searchForm")
+          btn.onclick = function() {
+            modal.style.display = "block";
+          }
+          
+          span.onclick = function() {
+            modal.style.display = "none";
+          }
+          
+          window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = "none";
+            }
+          }
+    </script>
+
+
+
+      <br>
+      
+        <div class="form-group">
+          {{ form.Versement_totalite.errors }}
+          <label for="id_Versement_totalite" default=TRUE>Versement totalité:</label>
+          {{ form.Versement_totalite }}
+      </div>
+      <br>
+      
+        <div class="form-group">
+            {{form.Versement.errors}}
+            <label for="id_Versement">Versement:</label>
+            {{form.Versement }}
+        </div>
+        <br>
+               
+        <div class="form-group">
+            {{form.Dette.errors}}
+            <label for="id_Dette">Dette:</label>
+            {{form.Dette}}
+        </div>
+        <br>
+              
+        <div class="form-group">
+            {{form.fichier.errors}}
+            <label for="id_Fichier">Fichier:</label>
+            {{ form.fichier}}
+        </div>
+        <br>
+               
+        
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <br>
+      
+
+        <div class="form-group">
+            <button type="submit" name="submit_action" value="save" class="btn">Sauvegarder </button>
+            <a href="{% url 'AchatApp:achat'%}" class="btn"> Annuler</a>
+        </div>
+      
+        <br>
+        <!-- Tableaux pour les produits-->
+        <div id="tables_container" style="position: absolute; top: 0; right: 0; width: 50%;height:50%; overflow: auto;">
+        <table id="selected_products_table">
+            <thead>
+              <tr>
+                <th>Designation</th>
+                <th>Prix Achat</th>
+                <th>Quantite</th>
+                <th>Prix Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <br>
+        </div>
+        
+        <div id="tables_container2" style="position: absolute;right: 0; width: 50%; height:50%;overflow: auto;">
+          <table id="selected_products_brut_table">
+            <thead>
+              <tr>
+                <th>Designation</th>
+                <th>Prix Achat en quintal</th>
+                <th>Quantite en m</th>
+                <th>Quantite en quintal</th>
+                <th>Quantite en barre</th>
+                <th>Prix Total</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+          <br>
+          <br>
+        </div>
+      </div>
+    </form>
+      <script type="text/javascript" src="{% static 'js/achat.js' %}"></script>
+      <script>
+        // Get the height of tables_container
+         document.getElementById("tables_container").addEventListener("change",function(){
+          const tablesContainerHeight = document.getElementById("tables_container").offsetHeight
+        });
+        
+        // Set the top property of tables_container2 to be equal to tablesContainerHeight
+        document.getElementById("tables_container2").style.top = tablesContainerHeight + "px";
+      </script>
+    
+</body>
+</html>

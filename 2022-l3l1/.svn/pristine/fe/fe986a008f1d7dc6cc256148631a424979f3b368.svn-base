@@ -1,0 +1,22 @@
+
+# Create your views here.
+
+
+from django.shortcuts import render
+from ProduitApp.models import ProduitBrut, Produit,Categorie
+
+"""
+view pour afficher les produits brut (barre de fer)
+"""
+def produit_brut(request):
+    produits_bruts = ProduitBrut.objects.all()
+    return render(request, 'produits_bruts.html', {'produits_bruts': produits_bruts})
+
+"""
+view pour afficher les cadres 
+"""
+def cadre(request):
+    cadres = Produit.objects.filter(categorie__name='cadre')
+    return render(request, 'cadres.html', {'cadres': cadres})
+
+

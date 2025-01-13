@@ -1,0 +1,134 @@
+from io import BytesIO
+
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, redirect
+from django.template.loader import get_template
+from django.views import View
+from xhtml2pdf import pisa
+
+from ClientApp.forms import ClientForms
+from ClientApp.models import Client
+from ProduitApp.models import Produit
+from VenteApp.models import Commande
+
+
+def index(request):
+
+    form = ClientForms()
+
+    total_produit = Produit.objects.count()
+    total_client = Client.objects.count()
+    total_oder = Commande.objects.count()
+
+    if request.method == 'POST':
+        form = ClientForms(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('clientApp')
+
+    context = {
+        'form': form,
+        'dataClient': Client.objects.all(),
+        'product': total_produit,
+        'customer': total_client,
+        'order': total_oder,
+
+    }
+    return render(request, "ClientApp/index.html", context)
+
+def createCustomer(request):
+
+    form = ClientForms()
+
+    if request.method == 'POST':
+        form = ClientForms(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('ClientApp:clientApp')
+
+    context = {'form' : form}
+    return render(request, 'ClientApp/customer_form.html', context)
+
+
+def updateCustomer(request, pk):
+
+    order = Client.objects.get(id=pk)
+    form = ClientForms(instance=order)
+
+    if request.method == 'POST':
+        form = ClientForms(request.POST,request.FILES,instance=order)
+        if form.is_valid():
+            form.save()
+            return redirect('ClientApp:clientApp')
+    context = {'form': form}
+    return render(request, 'ClientApp/customer_form.html', context)
+
+def deleteCustomer(request,pk):
+    order = Client.objects.get(id=pk)
+    if request.method == "POST" :
+        order.delete()
+        return redirect('ClientApp:clientApp')
+    context = {'item':order}
+    return render(request,'ClientApp/delete.html', context)
+
+def searchBar(request):
+    if request.method=='GET':
+        query = request.GET.get('requete')
+        if query:
+            clients = Client.objects.filter(prenom__icontains=query)
+            return render(request, 'ClientApp/searchbar.html', {'clients':clients})
+        else:
+            print("Aucun résultat")
+            return request(request, 'ClientApp/searchbar.html', {})
+
+def render_to_pdf(template, context_dict):
+        dataClients = Client.objects.all()
+        context = {'dataCommande': dataClients}
+        template = get_template(template)
+        html = template.render(context)
+        result = BytesIO()
+        pdf = pisa.pisaDocument(BytesIO(html.encode("ISO_8859-1")), result)
+        if not pdf.err:
+            return HttpResponse(result.getvalue(), content_type='application/pdf')
+        return None
+
+data = {
+            "company": "Gestion commercial",
+            "address": "Adresse de l'entreprise",
+            "city": "Ville",
+            "state": "Pays",
+            "zipcode": "Code postal",
+
+            "phone": "00 00 00 00 00",
+            "email": "email@gmail.com",
+        }
+
+# Opens up page as PDF
+class ViewPDF(View):
+        def get(self, request, *args, **kwargs):
+            pdf = render_to_pdf('ClientApp/pdf_template.html', data)
+            return HttpResponse(pdf, content_type='application/pdf')
+
+        # Automaticly downloads to PDF file
+class DownloadPDF(View):
+    def get(self, request, *args, **kwargs):
+        pdf = render_to_pdf('ClientApp/pdf_template.html', data)
+
+        response = HttpResponse(pdf, content_type='application/pdf')
+        filename = "listeClients_%s.pdf" % ("12341231")
+        content = "attachment; filename='%s'" % (filename)
+        response['Content-Disposition'] = content
+        return response
+
+def creerArticle(request):
+
+    form = ClientForms()
+
+    if request.method == 'POST':
+        form = ClientForms(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('ClientApp:clientApp')
+
+    context = {'form' : form}
+    return render(request, 'ClientApp/customer_form.html', context)

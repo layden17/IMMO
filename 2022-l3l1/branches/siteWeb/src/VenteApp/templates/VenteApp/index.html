@@ -1,0 +1,125 @@
+{% extends "siteWeb/base.html" %}
+{% load static %}{% block pageContent %}
+
+{% load humanize %}
+<head>
+    <meta charset="UTF-8">
+    <title>Vente</title>
+</head>
+
+
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-1">
+                            <i class="fa fa-cart-plus"></i>
+                        </div>
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ order }}</span></div>
+                                <div class="stat-heading">Commande</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-4">
+                            <i class="fa fa-users"></i>
+                        </div>
+                        <a href = "{% url 'ClientApp:clientApp' %}">
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ customer }}</span></div>
+                                <div class="stat-heading">Client</div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="stat-widget-five">
+                        <div class="stat-icon dib flat-color-2">
+                            <i class="fa fa-product-hunt"></i>
+                        </div>
+                        <a href = "{% url 'ProduitApp:produitApp' %}">
+                        <div class="stat-content">
+                            <div class="text-left dib">
+                                <div class="stat-text"><span class="count">{{ product }}</span></div>
+                                <div class="stat-heading">Produit</div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <br>
+
+    <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <a classe ="btn btn-info" href="{% url 'VenteApp:pdf_view' %}" target="_blank">Aperçu PDF</a>
+        <a class="btn btn-info"  href="{% url 'VenteApp:pdf_download' %}">Télécharger PDF</a>
+    </div>
+
+     <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'VenteApp:order_create' %}">Créer une commande</a>
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'ClientApp:create_customer' %}">Ajouter un client</a>
+     </div>
+
+ <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <form action="{% url 'VenteApp:search' %}" method="get" class="d-flex">
+        <input class="form-control me-2" type="text" name="requete" placeholder="recherche" aria-label="search">
+        <button class="btn btn-outline-success" type="submit">🔎</button>
+    </form>
+ </div>
+
+ <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<table border="1" class="table table-bordered" style="border-collapse:collapse;">
+    <thead>
+     <th> N° </th>
+    <th> Client</th>
+     <th>Quantité</th>
+     <th>Total</th>
+    <th> Date de création</th>
+    <th> Date de réception</th>
+    <th> Commande livrée</th>
+    </thead>
+    <tbody>
+    {% for command in dataCommande %}
+    <tr>
+        <td>{{command.id}}</td>
+
+        <td><a href='{% url "VenteApp:commandes" command.client.id %}' class="text-secondary" >
+            {{command.client}}</a>
+        </td>
+        <td> {{ command.total_qty }}</td>
+        <td> {{ command.total_order | intcomma }}</td>
+        <td>{{command.date_creation }}</td>
+        <td>{{command.date_reception }}</td>
+        <td>{{command.statut}}</td>
+        <td><a class ="btn btn-sm btn-dark" href="{% url 'VenteApp:update_order' command.id %}">modifier</a></td>
+        <td><a class ="btn btn-sm btn-danger" href="{% url 'VenteApp:delete_order' command.id %}">supprimer</a></td>
+         <td><a class ="btn btn-sm btn-light" href="{% url 'VenteApp:order_details' command.id %}">détails</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+ </div>
+
+{% endblock pageContent %}

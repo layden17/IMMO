@@ -1,0 +1,20 @@
+{% extends 'ProduitApp/produit_base.html' %}
+
+{% block content %}
+    <h1>Détails du produit : {{ object.designation }}</h1>
+    <p>catégorie : {{ object.categorie}} </p>
+    <p>prix d'achat {{ object.prix_achat}}</p>
+    <p>prix de vente:  {{ object.prix_vente}}</p>
+    <p>stock :  {{ object.quantite}}</p>
+    <p>quantite alerte: {{ object.stock_alerte}}</p>
+
+    <!-- Lien vers la page de modification du produit -->
+    <a href="{% url 'ProduitApp:modifier_autre_produit' object.pk %}">Modifier</a>
+
+    <!-- Lien pour supprimer le produit -->
+    <a href="{% url 'ProduitApp:supprimer_autre_produit' object.pk %}">supprimer</a>
+
+    <!-- Bouton pour annuler et retourner à la liste des produits -->
+    <button><a href="{% url 'ProduitApp:autre_produit' %}"> Retour</a></button>
+
+{% endblock %}

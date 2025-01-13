@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistiques</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/decimal.js/10.2.0/decimal.min.js"></script>
+</head>
+<body>
+<h1>Statistiques</h1>
+<br><br>
+<h2>Produit</h2>
+<div style="display: flex; justify-content: space-around;">
+    <div id="produit1" style="width: 40%;">
+        <canvas id="top5_prix_cadre"></canvas>
+    </div>
+    <div id="produit2" style="width: 40%;">
+        <canvas id="prix_consommation"></canvas>
+    </div>
+    <div id="produit3" style="width: 40%;">
+        <canvas id="information_produit"></canvas>
+    </div>
+</div>
+
+<h2>Vente et achat</h2>
+
+<div style="display: flex; justify-content: space-around;">
+    <div id="achat_vente1" style="width: 40%;">
+        <canvas id="achat_vente"></canvas>
+    </div>
+
+    <div id="article_cadre1" style="width: 40%;">
+        <canvas id="article_cadre"></canvas>
+    </div>
+
+    <div id="article_brut1" style="width: 40%;">
+        <canvas id="article_brut"></canvas>
+    </div>
+
+    <div id="article_autre1" style="width: 40%;">
+        <canvas id="article_autre"></canvas>
+    </div>
+</div>
+
+<h2>Client et fournisseur</h2>
+<div style="display: flex; justify-content: space-around;">
+    <div id="client1" style="width: 40%;">
+        <canvas id="client_fournisseur"></canvas>
+    </div>
+
+    <div id="client2" style="width: 40%;">
+        <canvas id="dette_client_fournisseur"></canvas>
+    </div>
+
+    <div id="client3" style="width: 40%;">
+        <canvas id="top5_dette_fournisseur"></canvas>
+    </div>
+
+    <div id="client4" style="width: 40%;">
+        <canvas id="top5_dette_client"></canvas>
+    </div>
+
+    <div id="client5" style="width: 40%;">
+        <canvas id="top5_fournisseur"></canvas>
+    </div>
+
+</div>
+<br>
+
+
+
+
+
+<script>
+    //graphe pour top 5 prix cadre
+    var data1 = {
+        datasets: [{
+            data: {{ data1|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080'  // violet
+            ],
+            label: 'Prix des top 5 cadres'
+        }],
+        labels: {{ labels1|safe }}
+    };
+    var options1 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Les cadres les plus chers (Top 5)"
+        }
+    };
+    var config1 = {
+        type: 'line',
+        data: data1,
+        options: options1
+    };
+
+
+    //Information cadres
+    var data2 = {
+        datasets: [{
+            data: [{{ prix_total_cadre }},{{ consommation_total }}, {{ prix_service_total }}, {{ nb_cadre }} ],
+            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            borderColor: 'rgba(0, 123, 255, 1)',
+            borderWidth: 2,
+            pointBackgroundColor: 'rgba(0, 123, 255, 1)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgba(0, 123, 255, 1)',
+            label: 'Métadonnées de cadre'
+        }],
+        labels: ['Prix total', 'Consommation totale', 'Prix de service','Nombre de cadre']
+    };
+
+    var options2 = {
+        responsive: true,
+        maintainAspectRatio: false,
+        title: {
+            display: true,
+            text: "Informations sur les cadres",
+            fontSize: 16,
+            fontColor: '#333'
+        },
+        legend: {
+            display: true,
+            labels: {
+                fontColor: '#333',
+                fontSize: 14,
+                padding: 15,
+                boxWidth: 10
+            }
+        },
+        scale: {
+            ticks: {
+                beginAtZero: true,
+                maxTicksLimit: 5,
+                fontSize: 14,
+                fontColor: '#333',
+                padding: 10
+            },
+            gridLines: {
+                color: '#ddd'
+            },
+            angleLines: {
+                color: '#ddd'
+            },
+            pointLabels: {
+                fontSize: 14,
+                fontColor: '#333'
+            }
+        }
+    };
+
+    var config2 = {
+        type: 'radar',
+        data: data2,
+        options: options2
+    };
+
+    // top 5 dette client
+    var data3 = {
+        datasets: [{
+            data: {{ data3|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080'  // violet
+            ],
+            label: 'top 5 dette client'
+        }],
+        labels: {{ labels3|safe }}
+    };
+    var options3 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Top 5 client qui ont le plus de dette"
+        }
+    };
+    var config3 = {
+        type: 'pie',
+        data: data3,
+        options: options3
+    };
+
+
+    //Client et fournisseur
+    var data4 = {
+        datasets: [{
+            data: [{{ nb_client }},{{ nb_fournisseur }} ],
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+            ],
+            label: 'Client et fournisseur'
+        }],
+        labels: ['Client', 'Fournisseur']
+    };
+    var options4 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Répartition des clients et fournisseurs"
+        }
+    };
+    var config4 = {
+        type: 'pie',
+        data: data4,
+        options: options4
+    };
+
+    //Informations produits
+    var data5 = {
+        datasets: [{
+            data: [{{ nb_produit }},{{ nb_autre_produit }},{{ nb_categorie }} ],
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+            ],
+            label: 'Informations produits'
+        }],
+        labels: ['Produit', 'Autre produit', 'Categorie']
+    };
+    var options5 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Informations produits"
+        }
+    };
+    var config5 = {
+        type: 'pie',
+        data: data5,
+        options: options5
+    };
+
+
+
+    // top 5 dette client
+    var data3 = {
+        datasets: [{
+            data: {{ data3|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080'  // violet
+            ],
+            label: 'Top 5 client qui ont le plus de dette'
+        }],
+        labels: {{ labels3|safe }}
+    };
+    var options3 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Top 5 client qui ont le plus de dette"
+        }
+    };
+    var config3 = {
+        type: 'pie',
+        data: data3,
+        options: options3
+    };
+
+
+
+    // top 5 dette founisseur
+    var data6 = {
+        datasets: [{
+            data: {{ data6|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080'  // violet
+            ],
+            label: 'top 5 dette founisseur'
+        }],
+        labels: {{ labels6|safe }}
+    };
+    var options6 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Top 5 fournisseur qui ont le plus de dette"
+        }
+    };
+    var config6 = {
+        type: 'pie',
+        data: data6,
+        options: options6
+    };
+
+
+    //dette total client et fournisseur
+    var data7 = {
+        datasets: [{
+            data: [{{ dette_client }},{{ dette_fournisseur }}],
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+            ],
+            label: 'Dette total de client et fournisseur'
+        }],
+        labels: ['Client', 'Fournisseur']
+    };
+    var options7 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Dette total de client et fournisseur"
+        }
+    };
+    var config7 = {
+        type: 'pie',
+        data: data7,
+        options: options7
+    };
+
+
+
+/*
+    var data8 = {
+        datasets: [{
+            data: [{{ data8|safe }}],
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080'  // violet
+            ],
+            label: 'top 5 meilleur fournisseur'
+        }],
+        labels: {{ labels8|safe }}
+    };
+    var options8 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "top 5 meilleur fournisseur"
+        }
+    };
+    var config8 = {
+        type: 'pie',
+        data: data8,
+        options: options8
+    };
+*/
+
+
+
+    // cadre plus vendu
+    var data9 = {
+        datasets: [{
+            data: {{ data9|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080',  // violet
+                '#FFFF00', // jaune
+                '#FFA500', // orange
+                '#FFFFFF', // blanc
+                '#FFC0CB', // rose
+                '#808080' // gris
+            ],
+            label: 'Total'
+        }],
+        labels: {{ labels9|safe }}
+    };
+    var options9 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Les cadres les plus vendus"
+        }
+    };
+    var config9 = {
+        type: 'bar',
+        data: data9,
+        options: options9
+    };
+
+
+
+    // article brut
+    var data10 = {
+        datasets: [{
+            data: {{ data10|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080', // violet
+                '#FFFF00', // jaune
+                '#FFA500', // orange
+                '#FFFFFF', // blanc
+                '#FFC0CB', // rose
+                '#808080' // gris
+            ],
+            label: 'brut plus vendu'
+        }],
+        labels: {{ labels10|safe }}
+    };
+    var options10 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Les produits bruts plus vendus"
+        }
+    };
+    var config10 = {
+        type: 'pie',
+        data: data10,
+        options: options10
+    };
+
+
+
+
+    // autre article
+    var data11 = {
+        datasets: [{
+            data: {{ data11|safe }},
+            backgroundColor: [
+                '#0000FF', // bleu
+                '#FF0000', // rouge
+                '#008000', // vert
+                '#000000', // noir
+                '#800080', // violet
+            ],
+            label: 'autre produit top 5'
+        }],
+        labels: {{ labels11|safe }}
+    };
+    var options11 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Top 5 des autres produits les plus vendus"
+        }
+    };
+    var config11 = {
+        type: 'pie',
+        data: data11,
+        options: options11
+    };
+
+
+    //achat et vente
+    var data12 = {
+        datasets: [{
+            data: [{{ prix_total_vente }} - {{ prix_total_achat }}, {{ prix_total_vente }},{{ prix_total_achat }}  ],
+            backgroundColor: [
+                '#008000', // vert
+                '#0000FF', // bleu - représente le Prix total
+                '#FF0000', // rouge - représente la Consommation totale
+
+            ],
+            label: 'Bénéfice',
+        }],
+        labels: ['Profil','Prix total de vente', 'Prix total d\'achat']
+
+    };
+    var options12 = {
+        responsive: true,
+        title: {
+            display: true,
+            text: "Total vente et achat"
+        },
+        legend: {
+            display: true,
+            labels: {
+                fontColor: 'black'
+            }
+        }
+    };
+    var config12 = {
+        type: 'bar',
+        data: data12,
+        options: options12
+    };
+
+
+
+
+    window.onload = function() {
+        var ctx1 = document.getElementById('top5_prix_cadre').getContext('2d');
+        window.myPie1 = new Chart(ctx1, config1);
+        var ctx2 = document.getElementById('prix_consommation').getContext('2d');
+        window.myPie2 = new Chart(ctx2, config2);
+        var ctx3 = document.getElementById('top5_dette_client').getContext('2d');
+        window.myPie3 = new Chart(ctx3, config3);
+
+        var ctx4 = document.getElementById('client_fournisseur').getContext('2d');
+        window.myPie4 = new Chart(ctx4, config4);
+
+        var ctx5 = document.getElementById('information_produit').getContext('2d');
+        window.myPie5 = new Chart(ctx5, config5);
+
+        var ctx6 = document.getElementById('top5_dette_fournisseur').getContext('2d');
+        window.myPie6 = new Chart(ctx6, config6);
+
+
+        var ctx7 = document.getElementById('dette_client_fournisseur').getContext('2d');
+        window.myPie7 = new Chart(ctx7, config7);
+
+       // var ctx8 = document.getElementById('top5_fournisseur').getContext('2d');
+       // window.myPie8 = new Chart(ctx8, config8);
+
+        var ctx9 = document.getElementById('article_cadre').getContext('2d');
+        window.myPie9 = new Chart(ctx9, config9);
+
+        var ctx10 = document.getElementById('article_brut').getContext('2d');
+        window.myPie10 = new Chart(ctx10, config10);
+
+        var ctx11 = document.getElementById('article_autre').getContext('2d');
+        window.myPie11 = new Chart(ctx11, config11);
+
+        var ctx12 = document.getElementById('achat_vente').getContext('2d');
+        window.myPie12 = new Chart(ctx12, config12);
+    };
+</script>
+</body>
+</html>
